@@ -1,17 +1,43 @@
 <?php
-include '../../database/connection.php';
+include '../../../database/connection.php';
 
-$getStudents = "SELECT 
-                    s.*, 
-                    y.year, 
-                    c.course 
-                FROM `tbl_student` s
-                LEFT JOIN `tbl_year` y ON s.year_id = y.year_id
-                LEFT JOIN `tbl_course` c ON s.course_id = c.course_id";
+// Fetch data for tbl_year
+$yearStmt = $conn->query("SELECT * FROM tbl_year");
+$years = $yearStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$getStmt = $conn->query($getStudents);
-$students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
+// Fetch data for tbl_course
+$courseStmt = $conn->query("SELECT * FROM `tbl_course`");
+$courses = $courseStmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+if (isset($_GET['student_id'])) {
+    $student_id = $_GET['student_id'];
+
+    $stmt = $conn->prepare("
+        SELECT 
+            s.*, 
+            y.year, 
+            c.course 
+        FROM `tbl_student` s
+        LEFT JOIN `tbl_year` y ON s.year_id = y.year_id
+        LEFT JOIN `tbl_course` c ON s.course_id = c.course_id
+        WHERE s.student_id = ?
+    ");
+
+    $stmt->execute([$student_id]);
+
+    if ($stmt->rowCount() === 0) {
+        header('location: dashboard');
+        exit();
+    } else {
+        $students = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+}
+
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -19,34 +45,33 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Student List</title>
+    <title>Update Students</title>
     <!-- Favicon-->
-    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
-
+    <link rel="icon" href="../../assets/favicon.ico" type="image/x-icon">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="../assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="../assets/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="../../assets/plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="../assets/plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="../../assets/plugins/animate-css/animate.css" rel="stylesheet" />
 
-    <!-- JQuery DataTable Css -->
-    <link href="../assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- Sweet Alert Css -->
+    <link href="../../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
     <!-- Bootstrap Select Css -->
-    <link href="../assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="../../assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
     <!-- Custom Css -->
-    <link href="../assets/css/style.css" rel="stylesheet">
+    <link href="../../assets/css/style.css" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="../assets/css/themes/all-themes.css" rel="stylesheet" />
+    <link href="../../assets/css/themes/all-themes.css" rel="stylesheet" />
     <style>
         /* additional css right sidebar */
         .tab-content ul {
@@ -134,17 +159,6 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
-    <!-- #END# Search Bar -->
     <!-- Top Bar -->
     <nav class="navbar">
         <div class="container-fluid">
@@ -152,7 +166,7 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
                 <a id="app-title" style="display:flex;align-items:center" class="navbar-brand" href="">
-                    <img id="bcas-logo" style="width:250px;display:inline;margin-right:10px;" src="../../images/login/homepage-kll-logo.png" />
+                    <img id="bcas-logo" style="width:250px;display:inline;margin-right:10px;" src="../../../images/login/homepage-kll-logo.png" />
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -169,7 +183,7 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="../../images/login/logo-kll.jpg" width="48" height="48" alt="User" />
+                    <img src="../../../images/login/logo-kll.jpg" width="48" height="48" alt="User" />
 
                     <img src="https://tse2.mm.bing.net/th?id=OIP.fqSvfYQB0rQ-6EG_oqvonQHaHa&pid=Api&P=0&h=180" width="48" height="48" alt="User" />
                 </div>
@@ -181,7 +195,7 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <!-- #User Info -->
             <!-- Menu -->
-            <div class="menu">
+            <div class="menu" style="overflow: hidden;">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
                     <li>
@@ -202,18 +216,6 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                             <span>Students Grades</span>
                         </a>
                     </li>
-                    <!-- <li>
-                        <a href="pages/helper-classes.html">
-                            <i class="material-icons">layers</i>
-                            <span>Helper Classes</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages/changelogs.html">
-                            <i class="material-icons">update</i>
-                            <span>Changelogs</span>
-                        </a>
-                    </li> -->
 
                     <li class="">
                         <a href="../../home.php">
@@ -253,97 +255,128 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="container-fluid">
             <div class="block-header">
                 <ol class="breadcrumb breadcrumb-col-red">
-                    <li><a href="dashboard.php"><i class="material-icons">home</i> Home</a></li>
-                    <li class="active"><i class="material-icons">groups</i> Students</li>
+                    <li><a href="../dashboard.php"><i class="material-icons">home</i> Home</a></li>
+                    <li><a href="../students.php"><i class="material-icons">groups</i> Students</a></li>
+                    <li class="active"><i class="material-icons">groups</i> Update Students</li>
                 </ol>
             </div>
-            <!-- Exportable Table -->
+            <!-- Advanced Validation -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                Student List
-                            </h2>
+                            <h2>STUDENT ID: <?php echo $students['student_no'] ?></h2>
                         </div>
                         <div class="body">
-                            <div>
-                                <button class="btn btn-tealbtn bg-red waves-effect btn-lg" style="margin-bottom: 5px;" data-toggle="modal" data-target="#addUsersModal">+ Add students</button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover dataTable js-exportable" style="color: #0e0e0e !important;">
-                                    <thead>
-                                        <tr>
-                                            <th>Student #</th>
-                                            <th>Student Name</th>
-                                            <th>Student Year</th>
-                                            <th>Student Course</th>
-                                            <th>Marks</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($students as $student) : ?>
-                                            <tr>
-                                                <td><?php echo $student['student_no'] ?></td>
-                                                <td><?php echo $student['student_fullname'] ?></td>
-                                                <td><?php echo $student['year'] ?></td>
-                                                <td><?php echo $student['course'] ?></td>
-                                                <td style="color: green;"><?php echo $student['marks'] ?></td>
-                                                <td>
-                                                    <a href="">View</a>
-                                                    <a href="manage_students/update_students.php?student_id=<?php echo $student['student_id']; ?>">Update</a>
-                                                    <a href="">Delete</a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <form id="form_advanced_validation" action="../../functions/manage_students/update_students.php" method="POST">
+                                <input type="hidden" name="student_id" value="<?php echo $students['student_id'] ?>">
+                                <input type="hidden" name="year_id" value="<?php echo $students['year_id'] ?>">
+                                <input type="hidden" name="course_id" value="<?php echo $students['course_id'] ?>">
+
+
+
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <select name="year_id" class="form-control show-tick">
+                                            <option value="" disabled>-- Year Level --</option>
+                                            <?php foreach ($years as $year) : ?>
+                                                <option value="<?php echo $year['year_id']; ?>" <?php echo ($year['year_id'] == $students['year_id']) ? 'selected' : ''; ?>><?php echo $year['year']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <select name="course_id" class="form-control show-tick">
+                                            <option value="" disabled>-- Course --</option>
+                                            <?php foreach ($courses as $course) : ?>
+                                                <option value="<?php echo $course['course_id']; ?>" <?php echo ($course['course_id'] == $students['course_id']) ? 'selected' : ''; ?>><?php echo $course['course']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="student_fullname" value="<?php echo $students['student_fullname'] ?>" required>
+                                        <label class="form-label">Fullname</label>
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="student_email" value="<?php echo $students['student_email'] ?>" required>
+                                        <label class="form-label">Email</label>
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="student_address" value="<?php echo $students['student_address'] ?>" required>
+                                        <label class="form-label">Address</label>
+                                    </div>
+                                    <div class="help-info">House number, Barangay</div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="number" class="form-control" name="student_contact" value="<?php echo $students['student_contact'] ?>" maxlength="11" required>
+                                        <label class="form-label">Number</label>
+                                    </div>
+                                    <div class="help-info">09123456789</div>
+                                </div>
+
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="password" class="form-control" name="password" value="<?php echo $students['student_password'] ?>" maxlength="20" minlength="6" required>
+                                        <label class=" form-label">Password</label>
+                                    </div>
+                                    <div class="help-info">Min.6, Max 20 characters.</div>
+
+                                </div>
+                                <input class="btn bg-red" type="submit" name="submit" value="Save changes">
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- #END# Exportable Table -->
+            <!-- #END# Advanced Validation -->
         </div>
     </section>
 
     <!-- Jquery Core Js -->
-    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <script src="../../assets/plugins/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core Js -->
-    <script src="../assets/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="../../assets/plugins/bootstrap/js/bootstrap.js"></script>
 
     <!-- Select Plugin Js -->
-    <script src="../assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <script src="../../assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
     <!-- Slimscroll Plugin Js -->
-    <script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="../../assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
     <!-- Jquery Validation Plugin Css -->
-    <script src="../assets/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="../../assets/plugins/jquery-validation/jquery.validate.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="../../assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- JQuery Steps Plugin Js -->
+    <script src="../../assets/plugins/jquery-steps/jquery.steps.js"></script>
+
+    <!-- Sweet Alert Plugin Js -->
+    <script src="../../assets/plugins/sweetalert/sweetalert.min.js"></script>
 
     <!-- Waves Effect Plugin Js -->
-    <script src="../assets/plugins/node-waves/waves.js"></script>
-
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="../assets/plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="../assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    <script src="../../assets/plugins/node-waves/waves.js"></script>
 
     <!-- Custom Js -->
-    <script src="../assets/js/admin.js"></script>
-    <script src="../assets/js/pages/tables/jquery-datatable.js"></script>
-    <script src="../assets/js/pages/forms/basic-form-elements.js"></script>
-    <script src="../assets/js/pages/forms/form-validation.js"></script>
+    <script src="../../assets/js/admin.js"></script>
+    <script src="../../assets/js/pages/forms/form-validation.js"></script>
+
     <!-- Demo Js -->
-    <script src="../assets/js/demo.js"></script>
+    <script src="../../assets/js/demo.js"></script>
 </body>
 
 </html>
