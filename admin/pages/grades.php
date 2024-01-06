@@ -316,11 +316,30 @@ $result = $conn->query($getGrades);
 
                                                 </td>
                                                 <td>
-                                                    <a href="#">Edit</a>
-                                                    <a href="#">Delete</a>
-                                                    <!-- Add other actions as needed -->
+                                                    <a href="manage_grades/update_grades.php?grade_id=<?php echo $results['grade_id']; ?>">Update</a>
+                                                    <a href="#" data-toggle="modal" data-target="#deleteGradesModal<?php echo $results['grade_id']; ?>">Delete</a>
                                                 </td>
                                             </tr>
+
+                                            <div class="modal fade" id="deleteGradesModal<?php echo $results['grade_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteGradesModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteGradesModalLabel">Delete Grades</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Cannot undo deleting grades are you sure you want to delete this?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form id="deleteGradesForm" class="deleteGradesForm" data-grade-id="<?php echo $results['grade_id']; ?>" action="../functions/manage_grades/delete_grades.php" method="GET" enctype="multipart/form-data">
+                                                                <input type="hidden" name="grade_id" value="<?php echo $results['grade_id']; ?>">
+                                                                <button type="submit" class="btn bg-red">Delete</button>
+                                                            </form>
+                                                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
@@ -337,7 +356,7 @@ $result = $conn->query($getGrades);
     <!-- Jquery Core Js -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
     <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
-    <script src="../ajax/manage_students/delete_students.js"></script>
+    <script src="../ajax/manage_grades/delete_grades.js"></script>
 
     <!-- Bootstrap Core Js -->
     <script src="../assets/plugins/bootstrap/js/bootstrap.js"></script>
