@@ -5,8 +5,8 @@ $dbpass = '';
 
 $conn = new PDO($dbhost, $dbname, $dbpass);
 
-if (!$conn) {
-    echo 'Not connected to database';
-} else {
-    echo 'Successfully connected to database';
-}
+// if (!$conn) {
+//     echo 'Not connected to database';
+// } else {
+//     echo 'Successfully connected to database';
+// }

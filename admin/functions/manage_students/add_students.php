@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
         INSERT INTO `tbl_student` (student_no, student_fullname, student_email, student_password, student_contact, student_address, marks, year_id, course_id, student_profile) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
     ");
 
-    $insert_stmt->execute([$student_no, $student_fullname, $student_email, $password, $student_contact, $student_address, $marks, $year_id, $course_id, $fileName]);
+    $insert_stmt->execute([$student_no, $student_fullname, $student_email, $password, $student_contact, $student_address, $marks, $year_id, $course_id, $file_name]);
 
     header('Location: success_page.php');
     exit();

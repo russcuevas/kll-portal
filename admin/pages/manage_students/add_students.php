@@ -180,26 +180,32 @@ $courses = $courseStmt->fetchAll(PDO::FETCH_ASSOC);
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
                     <li>
-                        <a href="home.php">
+                        <a href="../dashboard.php">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
                     <li class="active">
-                        <a href="students.php">
+                        <a href="../students.php">
                             <i class="material-icons">groups</i>
                             <span>Students</span>
                         </a>
                     </li>
                     <li>
-                        <a href="students_grades.php">
-                            <i class="material-icons">groups</i>
-                            <span>Students Grades</span>
+                        <a href="pages/helper-classes.html">
+                            <i class="material-icons">grade</i>
+                            <span>Grades</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="pages/helper-classes.html">
+                            <i class="material-icons">book</i>
+                            <span>Course</span>
                         </a>
                     </li>
 
                     <li class="">
-                        <a href="../../home.php">
+                        <a href="../../../home.php">
                             <i class="material-icons">web</i>
                             <span>Page</span>
                         </a>
@@ -319,7 +325,7 @@ $courses = $courseStmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="form-group form-float">
                                     <div class="form-line">
                                         <input type="number" class="form-control" name="student_contact" maxlength="11" required>
-                                        <label class="form-label">Number</label>
+                                        <label class="form-label">Phone number</label>
                                     </div>
                                     <div class="help-info">09123456789</div>
                                 </div>

@@ -42,6 +42,9 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Bootstrap Select Css -->
     <link href="../assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
+    <!-- Sweetalert Css -->
+    <link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
     <!-- Custom Css -->
     <link href="../assets/css/style.css" rel="stylesheet">
 
@@ -134,17 +137,6 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
-    <!-- #END# Search Bar -->
     <!-- Top Bar -->
     <nav class="navbar">
         <div class="container-fluid">
@@ -185,7 +177,7 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
                     <li>
-                        <a href="home.php">
+                        <a href="dashboard.php">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
@@ -197,23 +189,17 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                         </a>
                     </li>
                     <li>
-                        <a href="students_grades.php">
-                            <i class="material-icons">groups</i>
-                            <span>Students Grades</span>
-                        </a>
-                    </li>
-                    <!-- <li>
                         <a href="pages/helper-classes.html">
-                            <i class="material-icons">layers</i>
-                            <span>Helper Classes</span>
+                            <i class="material-icons">grade</i>
+                            <span>Grades</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pages/changelogs.html">
-                            <i class="material-icons">update</i>
-                            <span>Changelogs</span>
+                        <a href="pages/helper-classes.html">
+                            <i class="material-icons">book</i>
+                            <span>Course</span>
                         </a>
-                    </li> -->
+                    </li>
 
                     <li class="">
                         <a href="../../home.php">
@@ -268,10 +254,10 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="body">
                             <div>
-                                <a href="manage_students/add_students.php" class="btn btn-tealbtn bg-red waves-effect btn-lg" style="margin-bottom: 5px;">+ Add students</a>
+                                <a href="manage_students/add_students.php" class="btn btn-tealbtn bg-red waves-effect btn-lg" style="margin-bottom: 15px;">+ Add students</a>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover dataTable js-exportable" style="color: #0e0e0e !important;">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style=" color: #0e0e0e !important; margin-top: 20px important!">
                                     <thead>
                                         <tr>
                                             <th>Student #</th>
@@ -289,15 +275,36 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $student['student_no'] ?></td>
                                                 <td><img style="width: 50px;" src="../../images/profile_picture/<?php echo $student['student_profile'] ?>" alt=""></td>
                                                 <td><?php echo $student['student_fullname'] ?></td>
-                                                <td><?php echo $student['year'] ?></td>
+                                                <td><?php echo $student['year'] ?> - Year College</td>
                                                 <td><?php echo $student['course'] ?></td>
                                                 <td style="color: green;"><?php echo $student['marks'] ?></td>
                                                 <td>
                                                     <a href="">View</a>
                                                     <a href="manage_students/update_students.php?student_id=<?php echo $student['student_id']; ?>">Update</a>
-                                                    <a href="">Delete</a>
+                                                    <a href="#" data-toggle="modal" data-target="#deleteStudentsModal<?php echo $student['student_id'] ?>">Delete</a>
                                                 </td>
                                             </tr>
+
+                                            <div class="modal fade" id="deleteStudentsModal<?php echo $student['student_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteStudentsModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteStudentsModalLabel">Delete Student</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Are you sure you want to delete this student <?php echo $student['student_fullname'] ?>?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form id="deleteStudentsForm" class="deleteStudentsForm" data-student-id="<?php echo $student['student_id']; ?>" data-profile-picture="<?php echo $student['student_profile']; ?>" action="../functions/manage_students/delete_students.php" method="GET" enctype="multipart/form-data">
+                                                                <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
+                                                                <input type="hidden" name="profile_picture" value="<?php echo $student['student_profile']; ?>">
+                                                                <button type="submit" class="btn bg-red">Delete</button>
+                                                            </form>
+                                                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php endforeach ?>
                                     </tbody>
                                 </table>
@@ -308,10 +315,13 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <!-- #END# Exportable Table -->
         </div>
+
     </section>
 
     <!-- Jquery Core Js -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="../ajax/manage_students/delete_students.js"></script>
 
     <!-- Bootstrap Core Js -->
     <script src="../assets/plugins/bootstrap/js/bootstrap.js"></script>

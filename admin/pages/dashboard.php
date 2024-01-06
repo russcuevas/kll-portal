@@ -1,3 +1,32 @@
+<?php
+include '../../database/connection.php';
+
+// GET THE TOTAL STUDENTS
+$get_total_students = "SELECT COUNT(*) AS total_students FROM `tbl_student`";
+$stmt_total_students = $conn->prepare($get_total_students);
+$stmt_total_students->execute();
+$result_total_students = $stmt_total_students->fetch(PDO::FETCH_ASSOC);
+$total_students = $result_total_students['total_students'];
+// END GET TOTAL STUDENTS
+
+// GET THE TOTAL COURSE
+$get_total_course = "SELECT COUNT(*) AS total_course FROM `tbl_course`";
+$stmt_total_course = $conn->prepare($get_total_course);
+$stmt_total_course->execute();
+$result_total_course = $stmt_total_course->fetch(PDO::FETCH_ASSOC);
+$total_courses = $result_total_course['total_course'];
+// END GET TOTAL COURSE
+
+// GET TOTAL PASSED
+$get_total_pass = "SELECT COUNT(*) AS total_pass FROM `tbl_grades` WHERE grade_status = 'Passed'";
+$stmt_total_pass = $conn->prepare($get_total_pass);
+$stmt_total_pass->execute();
+$result_total_pass = $stmt_total_pass->fetch(PDO::FETCH_ASSOC);
+$total_pass = $result_total_pass['total_pass'];
+// END GET TOTAL PASSED
+
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -58,6 +87,41 @@
 
         .tab-content ul li a:hover {
             color: red !important;
+        }
+
+        .pagination li.active a {
+            background: linear-gradient(to right, #992626, #0e0e0e) !important;
+        }
+
+        .breadcrumb-col-red li a {
+            color: #992626 !important;
+            font-weight: bold;
+        }
+
+        .theme-red .sidebar .menu .list li.active> :first-child i,
+        .theme-red .sidebar .menu .list li.active> :first-child span {
+            color: #992626 !important;
+        }
+
+        .dataTables_wrapper .dt-buttons a.dt-button {
+            background: linear-gradient(to right, #992626, #0e0e0e) !important;
+            color: #fff;
+            padding: 7px 12px;
+            margin-right: 5px;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            -ms-border-radius: 2px;
+            border-radius: 2px;
+            border: none;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .bg-red {
+            background: linear-gradient(to right, #992626, #0e0e0e) !important;
+            color: #fff;
         }
     </style>
 </head>
@@ -200,29 +264,39 @@
 
             <!-- Widgets -->
             <div class="row clearfix">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-pink hover-expand-effect">
+                <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-red hover-expand-effect">
                         <div class="icon">
                             <i class="material-icons">playlist_add_check</i>
                         </div>
                         <div class="content">
                             <div class="text">TOTAL STUDENTS</div>
-                            <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+                            <h1 class="number"><?php echo $total_students ?></h1>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-cyan hover-expand-effect">
+                <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-red hover-expand-effect">
                         <div class="icon">
-                            <i class="material-icons">help</i>
+                            <i class="material-icons">groups</i>
                         </div>
                         <div class="content">
                             <div class="text">COURSE AVAILABLE</div>
-                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"></div>
+                            <h1 class="number"><?php echo $total_courses ?></h1>
                         </div>
                     </div>
                 </div>
-
+                <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-red hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">grade</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">GRADES PASSED</div>
+                            <h1 class="number"><?php echo $total_pass ?></h1>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- #END# Widgets -->
         </div>
