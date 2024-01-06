@@ -1,42 +1,49 @@
 <?php
 include '../../database/connection.php';
 
-// GET THE TOTAL STUDENTS
-$get_total_students = "SELECT COUNT(*) AS total_students FROM `tbl_student`";
-$stmt_total_students = $conn->prepare($get_total_students);
-$stmt_total_students->execute();
-$result_total_students = $stmt_total_students->fetch(PDO::FETCH_ASSOC);
-$total_students = $result_total_students['total_students'];
-// END GET TOTAL STUDENTS
+// Assuming you have a proper SQL query to fetch the required data
+$getGrades = "SELECT 
+    g.grade_id, 
+    g.grade_value, 
+    g.grade_status, 
+    s.student_fullname, 
+    s.student_no,
+    s.student_profile,
+    s.student_email, -- Include other student information as needed
+    s.student_contact,
+    s.student_address,
+    s.year_id, -- Include the 'year_id' for joining with tbl_year
+    s.course_id, -- Include the 'course_id' for joining with tbl_course
+    sb.subject_name, 
+    sb.subject_code,
+    sb.subject_unit,
+    ay.academic_year, 
+    sem.semester_name,
+    yr.year, -- Include the 'year' from tbl_year
+    cr.course -- Include the 'course' from tbl_course
+FROM tbl_grades g
+LEFT JOIN tbl_student s ON g.student_id = s.student_id
+LEFT JOIN tbl_subject sb ON g.subject_id = sb.subject_id
+LEFT JOIN tbl_academic_year ay ON g.academic_year_id = ay.academic_year_id
+LEFT JOIN tbl_semester sem ON g.semester_id = sem.semester_id
+LEFT JOIN tbl_year yr ON s.year_id = yr.year_id -- Join with tbl_year
+LEFT JOIN tbl_course cr ON s.course_id = cr.course_id -- Join with tbl_course";
 
-// GET THE TOTAL COURSE
-$get_total_course = "SELECT COUNT(*) AS total_course FROM `tbl_course`";
-$stmt_total_course = $conn->prepare($get_total_course);
-$stmt_total_course->execute();
-$result_total_course = $stmt_total_course->fetch(PDO::FETCH_ASSOC);
-$total_courses = $result_total_course['total_course'];
-// END GET TOTAL COURSE
-
-// GET TOTAL PASSED
-$get_total_pass = "SELECT COUNT(*) AS total_pass FROM `tbl_grades` WHERE grade_status = 'Passed'";
-$stmt_total_pass = $conn->prepare($get_total_pass);
-$stmt_total_pass->execute();
-$result_total_pass = $stmt_total_pass->fetch(PDO::FETCH_ASSOC);
-$total_pass = $result_total_pass['total_pass'];
-// END GET TOTAL PASSED
+// Execute the query and fetch data
+$result = $conn->query($getGrades);
 
 
 ?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Welcome To | Bootstrap Based Admin Template - Material Design</title>
+    <title>Student Grades List</title>
     <!-- Favicon-->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -51,9 +58,14 @@ $total_pass = $result_total_pass['total_pass'];
     <!-- Animation Css -->
     <link href="../assets/plugins/animate-css/animate.css" rel="stylesheet" />
 
-    <!-- Morris Chart Css-->
-    <link href="../assets/plugins/morrisjs/morris.css" rel="stylesheet" />
+    <!-- JQuery DataTable Css -->
+    <link href="../assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
 
+    <!-- Bootstrap Select Css -->
+    <link href="../assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+    <!-- Sweetalert Css -->
+    <link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
     <!-- Custom Css -->
     <link href="../assets/css/style.css" rel="stylesheet">
@@ -147,17 +159,6 @@ $total_pass = $result_total_pass['total_pass'];
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
-    <!-- #END# Search Bar -->
     <!-- Top Bar -->
     <nav class="navbar">
         <div class="container-fluid">
@@ -187,8 +188,8 @@ $total_pass = $result_total_pass['total_pass'];
                     <img src="https://tse2.mm.bing.net/th?id=OIP.fqSvfYQB0rQ-6EG_oqvonQHaHa&pid=Api&P=0&h=180" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                    <div class="email">john.doe@example.com</div>
+                    <div class="name" style="text-transform: capitalize;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrator</div>
+                    <div class="email">arjayolgado@gmail.com</div>
                     <div class="student_no">2021-029</div>
                 </div>
             </div>
@@ -197,20 +198,20 @@ $total_pass = $result_total_pass['total_pass'];
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
-                        <a href="home.php">
+                    <li>
+                        <a href="dashboard.php">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="students.php">
                             <i class="material-icons">groups</i>
                             <span>Students</span>
                         </a>
                     </li>
                     <li>
-                        <a href="grades.php">
+                        <a href="pages/helper-classes.html">
                             <i class="material-icons">grade</i>
                             <span>Grades</span>
                         </a>
@@ -259,51 +260,79 @@ $total_pass = $result_total_pass['total_pass'];
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>DASHBOARD</h2>
+                <ol class="breadcrumb breadcrumb-col-red">
+                    <li><a href="dashboard.php"><i class="material-icons">home</i> Home</a></li>
+                    <li class="active"><i class="material-icons">groups</i> Students</li>
+                </ol>
             </div>
-
-            <!-- Widgets -->
+            <!-- Exportable Table -->
             <div class="row clearfix">
-                <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-red hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">playlist_add_check</i>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                STUDENT GRADES LIST
+                            </h2>
                         </div>
-                        <div class="content">
-                            <div class="text">TOTAL STUDENTS</div>
-                            <h1 class="number"><?php echo $total_students ?></h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-red hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">groups</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">COURSE AVAILABLE</div>
-                            <h1 class="number"><?php echo $total_courses ?></h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-red hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">grade</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">GRADES PASSED</div>
-                            <h1 class="number"><?php echo $total_pass ?></h1>
+                        <div class="body">
+                            <div>
+                                <a href="manage_grades/add_grades.php" class="btn btn-tealbtn bg-red waves-effect btn-lg" style="margin-bottom: 15px;">+ Add grades</a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style=" color: #0e0e0e !important; margin-top: 20px important!">
+                                    <thead>
+                                        <tr>
+                                            <th>Student Details</th>
+                                            <th>Subject Details</th>
+                                            <th>Grade Summary</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($result as $results) : ?>
+                                            <tr>
+                                                <td>
+                                                    <img style="width: 50px;" src="../../images/profile_picture/<?php echo $results['student_profile'] ?>" alt=""> <br>
+                                                    Year : <span style="font-weight: 900;"><?php echo $results['year']; ?></span> <br>
+                                                    Course : <span style="font-weight: 900;"><?php echo $results['course']; ?> </span><br>
+                                                    Name : <span style="font-weight: 900;"><?php echo $results['student_fullname']; ?></span> <br>
+                                                    Student # : <span style="font-weight: 900;"><?php echo $results['student_no']; ?></span> <br>
+                                                </td>
+
+                                                <td>
+                                                    Academic Year : <span style="font-weight: 900;"><?php echo $results['academic_year']; ?></span> <br>
+                                                    Semester : <span style="font-weight: 900;"><?php echo $results['semester_name']; ?></span> <br>
+                                                    Subject code : <span style="font-weight: 900;"><?php echo $results['subject_code']; ?></span> <br>
+                                                    Subject name : <span style="font-weight: 900;"><?php echo $results['subject_name']; ?></span> <br>
+                                                    Unit : <span style="font-weight: 900;"><?php echo $results['subject_unit']; ?></span> <br>
+                                                </td>
+                                                <td>
+                                                    Final : <?php echo number_format($results['grade_value'], 2); ?> <br>
+                                                    Remarks : <span style="color: green; font-weight: 900;"><?php echo $results['grade_status']; ?></span>
+                                                </td>
+                                                <td>
+                                                    <a href="#">Edit</a>
+                                                    <a href="#">Delete</a>
+                                                    <!-- Add other actions as needed -->
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- #END# Widgets -->
+            <!-- #END# Exportable Table -->
         </div>
+
     </section>
 
     <!-- Jquery Core Js -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="../ajax/manage_students/delete_students.js"></script>
 
     <!-- Bootstrap Core Js -->
     <script src="../assets/plugins/bootstrap/js/bootstrap.js"></script>
@@ -314,33 +343,28 @@ $total_pass = $result_total_pass['total_pass'];
     <!-- Slimscroll Plugin Js -->
     <script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
+    <!-- Jquery Validation Plugin Css -->
+    <script src="../assets/plugins/jquery-validation/jquery.validate.js"></script>
+
     <!-- Waves Effect Plugin Js -->
     <script src="../assets/plugins/node-waves/waves.js"></script>
 
-    <!-- Jquery CountTo Plugin Js -->
-    <script src="../assets/plugins/jquery-countto/jquery.countTo.js"></script>
-
-    <!-- Morris Plugin Js -->
-    <script src="../assets/plugins/raphael/raphael.min.js"></script>
-    <script src="../assets/plugins/morrisjs/morris.js"></script>
-
-    <!-- ChartJs -->
-    <script src="../assets/plugins/chartjs/Chart.bundle.js"></script>
-
-    <!-- Flot Charts Plugin Js -->
-    <script src="../assets/plugins/flot-charts/jquery.flot.js"></script>
-    <script src="../assets/plugins/flot-charts/jquery.flot.resize.js"></script>
-    <script src="../assets/plugins/flot-charts/jquery.flot.pie.js"></script>
-    <script src="../assets/plugins/flot-charts/jquery.flot.categories.js"></script>
-    <script src="../assets/plugins/flot-charts/jquery.flot.time.js"></script>
-
-    <!-- Sparkline Chart Plugin Js -->
-    <script src="../assets/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="../assets/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="../assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="../assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="../assets/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="../assets/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="../assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="../assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="../assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="../assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
 
     <!-- Custom Js -->
     <script src="../assets/js/admin.js"></script>
-    <script src="../assets/js/pages/index.js"></script>
-
+    <script src="../assets/js/pages/tables/jquery-datatable.js"></script>
+    <script src="../assets/js/pages/forms/basic-form-elements.js"></script>
+    <script src="../assets/js/pages/forms/form-validation.js"></script>
     <!-- Demo Js -->
     <script src="../assets/js/demo.js"></script>
 </body>
