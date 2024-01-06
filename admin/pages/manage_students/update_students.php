@@ -135,6 +135,13 @@ if (isset($_GET['student_id'])) {
             background: linear-gradient(to right, #992626, #0e0e0e) !important;
             color: #fff;
         }
+
+        .form-group .form-line.focused .form-label,
+        .form-group .form-line .form-label {
+            top: -15px !important;
+            color: #212529 !important;
+            font-weight: 900;
+        }
     </style>
 </head>
 
@@ -165,7 +172,7 @@ if (isset($_GET['student_id'])) {
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a id="app-title" style="display:flex;align-items:center" class="navbar-brand" href="">
+                <a id="app-title" style="display:flex;align-items:center" class="navbar-brand" href="../dashboard.php">
                     <img id="bcas-logo" style="width:250px;display:inline;margin-right:10px;" src="../../../images/login/homepage-kll-logo.png" />
                 </a>
             </div>
@@ -268,11 +275,27 @@ if (isset($_GET['student_id'])) {
                             <h2>STUDENT ID: <?php echo $students['student_no'] ?></h2>
                         </div>
                         <div class="body">
-                            <form id="form_advanced_validation" action="../../functions/manage_students/update_students.php" method="POST">
+                            <form id="form_advanced_validation" action="../../functions/manage_students/update_students.php" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="student_id" value="<?php echo $students['student_id'] ?>">
                                 <input type="hidden" name="year_id" value="<?php echo $students['year_id'] ?>">
                                 <input type="hidden" name="course_id" value="<?php echo $students['course_id'] ?>">
 
+
+                                <div class="form-group form-float">
+                                    <label id="fileLabel" for="productImageInput">Student 2x2 picture</label>
+                                    <div class="form-line">
+                                        <input id="productImageInput" type="file" autocomplete="off" class="form-control" name="student_profile" onchange="previewImage(this)" <?php echo (isset($students['student_profile']) && !empty($students['student_profile'])) ? 'data-existing="' . $students['student_profile'] . '"' : ''; ?>>
+                                        <div class="help-info">JPEG/JPG/PNG</div>
+                                    </div>
+                                    <?php
+                                    if (isset($students['student_profile']) && !empty($students['student_profile'])) {
+                                        $existing_profile_pic = '../../../images/profile_picture/' . $students['student_profile'];
+                                        echo '<img id="imagePreview" style="display: block; margin-top: 10px;" width="100" height="100" alt="" src="' . $existing_profile_pic . '">';
+                                    } else {
+                                        echo '<img id="imagePreview" style="display: block; margin-top: 10px;" width="100" height="100" alt="">';
+                                    }
+                                    ?>
+                                </div>
 
 
                                 <div class="form-group form-float">
@@ -297,7 +320,8 @@ if (isset($_GET['student_id'])) {
                                     </div>
                                 </div>
 
-
+                                <br>
+                                <br>
 
                                 <div class="form-group form-float">
                                     <div class="form-line">
@@ -377,6 +401,35 @@ if (isset($_GET['student_id'])) {
 
     <!-- Demo Js -->
     <script src="../../assets/js/demo.js"></script>
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('imagePreview');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                preview.src = reader.result;
+                preview.style.width = '100px';
+                preview.style.height = '100px';
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+            }
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var fileInput = document.getElementById('productImageInput');
+
+            if (fileInput.dataset.existing) {
+                fileInput.value = fileInput.dataset.existing;
+            }
+        });
+    </script>
 </body>
 
 </html>

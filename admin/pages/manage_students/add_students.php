@@ -19,7 +19,7 @@ $courses = $courseStmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Update Students</title>
+    <title>Add Students</title>
     <!-- Favicon-->
     <link rel="icon" href="../../assets/favicon.ico" type="image/x-icon">
     <!-- Google Fonts -->
@@ -109,6 +109,13 @@ $courses = $courseStmt->fetchAll(PDO::FETCH_ASSOC);
             background: linear-gradient(to right, #992626, #0e0e0e) !important;
             color: #fff;
         }
+
+        .form-group .form-line.focused .form-label,
+        .form-group .form-line .form-label {
+            top: -15px !important;
+            color: #212529 !important;
+            font-weight: 900;
+        }
     </style>
 </head>
 
@@ -139,7 +146,7 @@ $courses = $courseStmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a id="app-title" style="display:flex;align-items:center" class="navbar-brand" href="">
+                <a id="app-title" style="display:flex;align-items:center" class="navbar-brand" href="../dashboard.php">
                     <img id="bcas-logo" style="width:250px;display:inline;margin-right:10px;" src="../../../images/login/homepage-kll-logo.png" />
                 </a>
             </div>
@@ -242,7 +249,16 @@ $courses = $courseStmt->fetchAll(PDO::FETCH_ASSOC);
                             <h2>ADD STUDENTS</h2>
                         </div>
                         <div class="body">
-                            <form id="form_advanced_validation" action="../../functions/manage_students/add_students.php" method="POST">
+                            <form id="form_advanced_validation" action="../../functions/manage_students/add_students.php" method="POST" enctype="multipart/form-data">
+
+                                <div class="form-group form-float">
+                                    <label id="fileLabel" for="productImageInput">Student 2x2 picture</label>
+                                    <div class="form-line">
+                                        <input id="productImageInput" type="file" autocomplete="off" class="form-control" name="student_profile" onchange="previewImage(this)" required>
+                                        <div class="help-info">JPEG/JPG/PNG</div>
+                                    </div>
+                                    <img id="imagePreview" style="display: block; margin-top: 10px;" width="100" height="100" alt="">
+                                </div>
 
                                 <div class="form-group form-float">
                                     <div class="form-line">
@@ -258,7 +274,7 @@ $courses = $courseStmt->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="form-group form-float">
                                     <div class="form-line">
                                         <select name="course_id" class="form-control show-tick" required>
-                                            <option disabled selected>-- Select course --</option>
+                                            <option style="color: #0e0e0e !important;" disabled selected>-- Select course --</option>
                                             <?php foreach ($courses as $course) : ?>
                                                 <option value="<?php echo $course['course_id']; ?>"><?php echo $course['course']; ?></option>
                                             <?php endforeach; ?>
@@ -266,33 +282,32 @@ $courses = $courseStmt->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
                                 </div>
 
+                                <br>
+                                <br>
+
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" name="student_fullname" required>
+                                        <input type="text" class="form-control" name="student_no" required>
                                         <label class="form-label">Student No.</label>
                                     </div>
                                 </div>
 
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input id="productImageInput" type="file" autocomplete="off" class="form-control" name="product_image" onchange="previewImage(this)" required>
-                                        <div class="help-info">JPEG/JPG/PNG</div>
-                                    </div>
-                                    <img id="imagePreview" style="display: block; margin-top: 10px;" width="100" height="100" alt="">
-                                    <label id="fileLabel" for="productImageInput">Student 2x2 picture</label>
-                                </div>
 
                                 <div class="form-group form-float">
                                     <div class="form-line">
                                         <input type="text" class="form-control" name="student_fullname" required>
                                         <label class="form-label">Fullname</label>
                                     </div>
+                                    <div class="help-info">Ex. Juan Dela Cruz, Jr</div>
+
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
                                         <input type="text" class="form-control" name="student_email" required>
                                         <label class="form-label">Email</label>
                                     </div>
+                                    <div class="help-info">Must be a valid email</div>
+
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">

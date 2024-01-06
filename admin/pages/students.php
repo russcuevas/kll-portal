@@ -263,7 +263,7 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Student List
+                                STUDENT LIST
                             </h2>
                         </div>
                         <div class="body">
@@ -275,6 +275,7 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                                     <thead>
                                         <tr>
                                             <th>Student #</th>
+                                            <th>Student Profile</th>
                                             <th>Student Name</th>
                                             <th>Student Year</th>
                                             <th>Student Course</th>
@@ -286,6 +287,7 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                                         <?php foreach ($students as $student) : ?>
                                             <tr>
                                                 <td><?php echo $student['student_no'] ?></td>
+                                                <td><img style="width: 50px;" src="../../images/profile_picture/<?php echo $student['student_profile'] ?>" alt=""></td>
                                                 <td><?php echo $student['student_fullname'] ?></td>
                                                 <td><?php echo $student['year'] ?></td>
                                                 <td><?php echo $student['course'] ?></td>
