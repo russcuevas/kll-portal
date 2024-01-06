@@ -268,7 +268,7 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="body">
                             <div>
-                                <button class="btn btn-tealbtn bg-red waves-effect btn-lg" style="margin-bottom: 5px;" data-toggle="modal" data-target="#addUsersModal">+ Add students</button>
+                                <a href="manage_students/add_students.php" class="btn btn-tealbtn bg-red waves-effect btn-lg" style="margin-bottom: 5px;">+ Add students</a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover dataTable js-exportable" style="color: #0e0e0e !important;">
