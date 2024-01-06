@@ -279,9 +279,9 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $student['course'] ?></td>
                                                 <td style="color: green;"><?php echo $student['marks'] ?></td>
                                                 <td>
-                                                    <a href="">View</a>
-                                                    <a href="manage_students/update_students.php?student_id=<?php echo $student['student_id']; ?>">Update</a>
-                                                    <a href="#" data-toggle="modal" data-target="#deleteStudentsModal<?php echo $student['student_id'] ?>">Delete</a>
+                                                    <a class="btn bg-red" href="">View</a>
+                                                    <a class="btn bg-red" href="manage_students/update_students.php?student_id=<?php echo $student['student_id']; ?>">Update</a>
+                                                    <a class="btn bg-red" href="#" data-toggle="modal" data-target="#deleteStudentsModal<?php echo $student['student_id'] ?>">Delete</a>
                                                 </td>
                                             </tr>
 

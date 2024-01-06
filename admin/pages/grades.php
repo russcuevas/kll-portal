@@ -316,8 +316,8 @@ $result = $conn->query($getGrades);
 
                                                 </td>
                                                 <td>
-                                                    <a href="manage_grades/update_grades.php?grade_id=<?php echo $results['grade_id']; ?>">Update</a>
-                                                    <a href="#" data-toggle="modal" data-target="#deleteGradesModal<?php echo $results['grade_id']; ?>">Delete</a>
+                                                    <a class="btn bg-red" href="manage_grades/update_grades.php?grade_id=<?php echo $results['grade_id']; ?>">Update</a>
+                                                    <a class="btn bg-red" href="#" data-toggle="modal" data-target="#deleteGradesModal<?php echo $results['grade_id']; ?>">Delete</a>
                                                 </td>
                                             </tr>
 
