@@ -3,7 +3,8 @@ include '../../database/connection.php';
 
 // Assuming you have a proper SQL query to fetch the required data
 $getGrades = "SELECT 
-    g.grade_id, 
+    g.grade_id,
+    g.teacher_assign,
     g.grade_value, 
     g.grade_status, 
     s.student_fullname, 
@@ -204,14 +205,14 @@ $result = $conn->query($getGrades);
                             <span>Home</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="students.php">
                             <i class="material-icons">groups</i>
                             <span>Students</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="pages/helper-classes.html">
+                    <li class="active">
+                        <a href="grades.php">
                             <i class="material-icons">grade</i>
                             <span>Grades</span>
                         </a>
@@ -262,7 +263,7 @@ $result = $conn->query($getGrades);
             <div class="block-header">
                 <ol class="breadcrumb breadcrumb-col-red">
                     <li><a href="dashboard.php"><i class="material-icons">home</i> Home</a></li>
-                    <li class="active"><i class="material-icons">groups</i> Students</li>
+                    <li class="active"><i class="material-icons">grade</i> Grades</li>
                 </ol>
             </div>
             <!-- Exportable Table -->
@@ -301,14 +302,18 @@ $result = $conn->query($getGrades);
 
                                                 <td>
                                                     Academic Year : <span style="font-weight: 900;"><?php echo $results['academic_year']; ?></span> <br>
+                                                    Teacher Assign : <span style="font-weight: 900;"><?php echo $results['teacher_assign']; ?> </span> <br>
                                                     Semester : <span style="font-weight: 900;"><?php echo $results['semester_name']; ?></span> <br>
                                                     Subject code : <span style="font-weight: 900;"><?php echo $results['subject_code']; ?></span> <br>
                                                     Subject name : <span style="font-weight: 900;"><?php echo $results['subject_name']; ?></span> <br>
                                                     Unit : <span style="font-weight: 900;"><?php echo $results['subject_unit']; ?></span> <br>
                                                 </td>
                                                 <td>
-                                                    Final : <?php echo number_format($results['grade_value'], 2); ?> <br>
-                                                    Remarks : <span style="color: green; font-weight: 900;"><?php echo $results['grade_status']; ?></span>
+                                                    Final grade : <span style="font-weight: 900;"><?php echo number_format($results['grade_value'], 2); ?></span> <br>
+                                                    Remarks : <span style="color: <?php echo ($results['grade_status'] === 'Passed') ? 'green' : 'red'; ?>; font-weight: 900;">
+                                                        <?php echo $results['grade_status']; ?>
+                                                    </span>
+
                                                 </td>
                                                 <td>
                                                     <a href="#">Edit</a>

@@ -189,7 +189,7 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                         </a>
                     </li>
                     <li>
-                        <a href="pages/helper-classes.html">
+                        <a href="grades.php">
                             <i class="material-icons">grade</i>
                             <span>Grades</span>
                         </a>
