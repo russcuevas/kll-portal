@@ -21,7 +21,7 @@
 <body id="sign-in">
 
     <div class="preloader">
-        <div class="loader_img"><img src="/assets/img/loader.gif" alt="loading..." height="64" width="64"></div>
+        <div class="loader_img"><img src="images/login/-kll.jpg" alt="loading..." height="64" width="64"></div>
     </div>
 
     <div class="flex-container">
@@ -31,7 +31,7 @@
                     <div class="row my-form-row">
                         <div class="col-md-6 my-col">
                             <div class="logo-container">
-                                <img class="img-logo" src="images/login/logo-kll.jpg">
+                                <img class="img-logo" src="images/login/homepage-kll-logo.png">
                             </div>
                         </div>
                         <div class="col-md-6 my-col">
@@ -66,8 +66,6 @@
                                             </div>
                                             <div class="col-xs-12">
                                                 <br><br>
-                                                <p class="text-center">By using this service, you understood and agree to the <a href="" target="_blank">KLL Terms of Use and Privacy Statement</a>
-                                                </p>
                                             </div>
                                         </div>
                                     </div>
