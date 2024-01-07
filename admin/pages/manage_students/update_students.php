@@ -296,6 +296,16 @@ if (isset($_GET['student_id'])) {
                             <h2>STUDENT ID: <?php echo $students['student_no'] ?></h2>
                         </div>
                         <div class="body">
+                            <?php
+                            if (isset($_SESSION['error_message'])) {
+                                echo '<div class="alert alert-danger">' . $_SESSION['error_message'] . '</div>';
+                                unset($_SESSION['error_message']);
+                            } elseif (isset($_SESSION['success_message'])) {
+                                echo '<div class="alert bg-green">' . $_SESSION['success_message'] . '</div>';
+                                unset($_SESSION['success_message']);
+                            }
+                            ?>
+
                             <form id="form_advanced_validation" action="../../functions/manage_students/update_students.php" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="student_id" value="<?php echo $students['student_id'] ?>">
                                 <input type="hidden" name="year_id" value="<?php echo $students['year_id'] ?>">

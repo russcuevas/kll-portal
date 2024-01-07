@@ -1,7 +1,11 @@
 <?php
 include '../../../database/connection.php';
+session_start();
 
-if (isset($_POST['submit'])) {
+$error_message = '';
+$success_message = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $student_id = $_POST['student_id'];
     $year_id = $_POST['year_id'];
     $course_id = $_POST['course_id'];
@@ -16,7 +20,9 @@ if (isset($_POST['submit'])) {
     $email_exist = $check_email->fetchColumn();
 
     if ($email_exist) {
-        echo 'Email already exists for another student. Please use a different email.';
+        $_SESSION['error_message'] = 'Email is already taken by other the student. Please use different email';
+        header("Location: ../../pages/manage_students/update_students.php?student_id=" . $student_id);
+        exit();
     } elseif (!empty($_FILES["student_profile"]["name"])) {
         $target_directory = "../../../images/profile_picture/";
         $file_name = basename($_FILES["student_profile"]["name"]);
@@ -44,7 +50,9 @@ if (isset($_POST['submit'])) {
 
             $update_stmt->execute([$year_id, $course_id, $student_fullname, $student_email, $student_address, $student_contact, $password, $file_name, $student_id]);
         } else {
-            echo "Sorry, only JPG, JPEG, and PNG files are allowed.";
+            $_SESSION['error_message'] = "Sorry, only JPG, JPEG, and PNG files are allowed.";
+            header("Location: ../../pages/manage_students/update_students.php?student_id=" . $student_id);
+            exit();
         }
     } else {
         $update_stmt = $conn->prepare("
@@ -65,8 +73,8 @@ if (isset($_POST['submit'])) {
     }
 
     if (!$email_exist) {
-        echo 'Updated student successfully';
+        $_SESSION['success_message'] = "Well done! student updated successfully";
+        header("Location: ../../pages/manage_students/update_students.php?student_id=" . $student_id);
+        exit();
     }
-} else {
-    echo 'Error updating student';
 }

@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $insert_stmt->execute([$student_no, $student_fullname, $student_email, $password, $student_contact, $student_address, $marks, $year_id, $course_id, $file_name]);
 
-        $_SESSION['success_message'] = "Student added successfully";
+        $_SESSION['success_message'] = "Well done! student added successfully";
         header("Location: ../../pages/manage_students/add_students.php");
         exit();
     }

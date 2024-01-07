@@ -16,7 +16,7 @@ if (isset($_GET['student_id']) && isset($_GET['profile_picture'])) {
     }
 
     $response['status'] = 'success';
-    $response['message'] = 'Student deleted successfully';
+    $response['message'] = 'Well done! student deleted successfully';
 } else {
     $response['status'] = 'error';
     $response['message'] = 'Invalid request parameters';
