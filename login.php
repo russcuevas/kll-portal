@@ -35,6 +35,9 @@ if (isset($_SESSION['student_id'])) {
     <link href="assets/css/login.css?v=2" rel="stylesheet">
     <link href="assets/css/app/evsu-theme.css?v=1" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/responsive.css">
+
+    <!-- Sweetalert Css -->
+    <link href="assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     <!--end page level css-->
 </head>
 
@@ -68,14 +71,14 @@ if (isset($_SESSION['student_id'])) {
 
                                             <div class="col-xs-12">
                                                 <h3 style="font-weight: bold;margin-bottom: 20px;">Sign In</h3>
-                                                <form action="functions-auth/login.php" id="" method="post" class="">
+                                                <form action="functions-auth/login.php" id="loginForm" class="loginForm" method="post" class="">
                                                     <div class="form-group">
                                                         <label for="email" class="sr-only"> Email</label>
-                                                        <input required type="text" class="form-control  form-control-lg input-lg" id="student_id" name="email" placeholder="Email">
+                                                        <input type="text" class="form-control  form-control-lg input-lg" id="student_id" name="email" placeholder="Email">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="password" class="sr-only">Password</label>
-                                                        <input required type="password" class="form-control form-control-lg input-lg" id="password" name="password" placeholder="Password">
+                                                        <input type="password" class="form-control form-control-lg input-lg" id="password" name="password" placeholder="Password">
                                                     </div>
 
                                                     <div class="form-group">
@@ -105,6 +108,8 @@ if (isset($_SESSION['student_id'])) {
     <!-- global js -->
     <script src="assets/js/jquery.min.js" type="text/javascript"></script>
     <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="ajax-auth/login.js"></script>
     <!-- end of global js -->
     <!-- page level js -->
     <script type="text/javascript" src="vendors/iCheck/js/icheck.js"></script>

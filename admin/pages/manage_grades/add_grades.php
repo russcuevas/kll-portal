@@ -251,12 +251,12 @@ $semesters = $semester_stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div role="tabpanel" id="skins">
                     <ul style="list-style-type: none;">
                         <li>
-                            <a style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class="material-icons mr-2" style="font-size: 18px; vertical-align: middle;">lock</i> Update profile</a>
+                            <a href="../manage_profile/update_profile.php" style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class="material-icons mr-2" style="font-size: 18px; vertical-align: middle;">lock</i> Update profile</a>
                         </li>
                     </ul>
                     <ul style="list-style-type: none;">
                         <li>
-                            <a style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class=" material-icons mr-2" style="font-size: 18px; vertical-align: middle;">exit_to_app</i> Logout</a>
+                            <a href="../../functions/auth/admin_logout.php" style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class=" material-icons mr-2" style="font-size: 18px; vertical-align: middle;">exit_to_app</i> Logout</a>
                         </li>
                     </ul>
                 </div>

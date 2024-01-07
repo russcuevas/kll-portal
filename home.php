@@ -64,7 +64,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="btn-medium btn btn-info text-white" href="login.php">Student portal</a>
+                                <a class="btn-medium btn btn-info text-white" href="login.php">Student Portal</a>
                             </li>
 
                             <!-- Modal -->

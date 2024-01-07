@@ -263,7 +263,7 @@ $total_pass = $result_total_pass['total_pass'];
                 <div role="tabpanel" id="skins">
                     <ul style="list-style-type: none;">
                         <li>
-                            <a style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class="material-icons mr-2" style="font-size: 18px; vertical-align: middle;">lock</i> Update profile</a>
+                            <a href="manage_profile/update_profile.php" style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class="material-icons mr-2" style="font-size: 18px; vertical-align: middle;">lock</i> Update profile</a>
                         </li>
                     </ul>
                     <ul style="list-style-type: none;">
@@ -320,7 +320,84 @@ $total_pass = $result_total_pass['total_pass'];
                 </div>
             </div>
             <!-- #END# Widgets -->
-        </div>
+
+            <div class="row clearfix">
+                <!-- Basic Example -->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="card" style="background: linear-gradient(to right, #992626, #0e0e0e) !important;">
+                        <div class="header">
+                            <h2 style="color: white;">CAMPUS TOUR</h2>
+                        </div>
+                        <div class="body">
+                            <div id="carousel-example-generic" data-ride="carousel">
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="item active">
+                                        <video width="99%" height="auto" controls autoplay muted>
+                                            <source src="../../home-assets/images/EBA.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #END# Basic Example -->
+                <!-- With Captions -->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="card" style="background: linear-gradient(to right, #992626, #0e0e0e) !important;">
+                        <div class="header">
+                            <h2 style="color: white;">CAMPUS EVENTS</h2>
+                        </div>
+                        <div class="body">
+                            <div id="carousel-example-generic_2" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example-generic_2" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-example-generic_2" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example-generic_2" data-slide-to="2"></li>
+                                </ol>
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="item active">
+                                        <img style="opacity: 0.9;" src="../../home-assets/images/biglakasan-event-1.jpg" />
+                                        <!-- <div class="carousel-caption">
+                                            <h3>Cheerdance competition</h3>
+                                            <p>@Kolehiyo ng lungsod ng lipa</p>
+                                        </div> -->
+                                    </div>
+                                    <div class="item">
+                                        <img src="../../home-assets/images/biglakasan-pageant.jpg" />
+                                        <!-- <div class="carousel-caption">
+                                            <h3>CTE Nights</h3>
+                                            <p>@Kolehiyo ng lungsod ng lipa</p>
+                                        </div> -->
+                                    </div>
+                                    <div class="item">
+                                        <img src="../../home-assets/images/crim-days.jpg" />
+                                        <!-- <div class="carousel-caption">
+                                            <h3>CRIM Days</h3>
+                                            <p>@Kolehiyo ng lungsod ng lipa</p>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#carousel-example-generic_2" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic_2" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
     </section>
 
     <!-- Jquery Core Js -->

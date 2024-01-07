@@ -1,12 +1,14 @@
 <?php
 include '../database/connection.php';
 
-if (isset($_POST['email']) && isset($_POST['password'])) {
+$response = array();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
     if (empty($email) || empty($password)) {
-        echo 'Warning: Fill up all fields first';
+        $response['status'] = 'warning';
+        $response['message'] = 'Please fill up all fields first';
     } else {
         $stmt_admin = $conn->prepare("SELECT * FROM `tbl_admin` WHERE email = ? AND password = ?");
         $stmt_admin->execute([$email, $password]);
@@ -20,16 +22,22 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             session_start();
             $_SESSION['admin_id'] = $admin['admin_id'];
             $_SESSION['login_success'] = true;
-            header('location: ../admin/pages/dashboard.php');
+            $response['status'] = 'success';
+            $response['role'] = 'admin';
         } elseif ($student) {
             session_start();
             $_SESSION['student_id'] = $student['student_id'];
             $_SESSION['login_success'] = true;
-            header('location: ../students/pages/dashboard.php');
+            $response['status'] = 'success';
+            $response['role'] = 'student';
         } else {
-            echo 'Invalid Credentials';
+            $response['status'] = 'error';
+            $response['message'] = 'Invalid credentials';
         }
     }
 } else {
     header('location: ../home');
 }
+
+header("Content-type: application/json");
+echo json_encode($response);
