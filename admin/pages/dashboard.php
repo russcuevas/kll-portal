@@ -7,6 +7,17 @@ if (!isset($admin_id)) {
     header('location: ../../login.php');
 }
 
+// GETTING THE DETAILS OF THE SESSION
+$sql_admin_details = "SELECT email, fullname FROM tbl_admin WHERE admin_id = ?";
+$stmt_admin_details = $conn->prepare($sql_admin_details);
+$stmt_admin_details->execute([$admin_id]);
+$admin_details = $stmt_admin_details->fetch(PDO::FETCH_ASSOC);
+
+$admin_email = $admin_details['email'];
+$admin_fullname = $admin_details['fullname'];
+
+
+
 // GET THE TOTAL STUDENTS
 $get_total_students = "SELECT COUNT(*) AS total_students FROM `tbl_student`";
 $stmt_total_students = $conn->prepare($get_total_students);
@@ -193,9 +204,9 @@ $total_pass = $result_total_pass['total_pass'];
                     <img src="https://tse2.mm.bing.net/th?id=OIP.fqSvfYQB0rQ-6EG_oqvonQHaHa&pid=Api&P=0&h=180" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                    <div class="email">john.doe@example.com</div>
-                    <div class="student_no">2021-029</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $admin_fullname; ?></div>
+                    <div class="email"><?php echo $admin_email; ?></div>
+                    <div class="student_no">NO STUDENT NUMBER</div>
                 </div>
             </div>
             <!-- #User Info -->
