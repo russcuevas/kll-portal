@@ -1,6 +1,10 @@
 <?php
 include '../../../database/connection.php';
 
+session_start();
+$error_message = '';
+$success_message = '';
+
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $subject_code = $_POST['subject_code'];
     $subject_name = $_POST['subject_name'];
@@ -15,12 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $subject_code_exist = $check_subject_code->fetchColumn();
 
     if ($subject_name_exist) {
-        echo 'Subject with the given name already exists. Please choose a different name.';
+        $_SESSION['error_message'] = 'Subject with the given name already exists. Please choose a different name.';
+        header("Location: ../../pages/manage_subject/add_subject.php");
+        exit();
     } elseif ($subject_code_exist) {
-        echo 'Subject with the given code already exists. Please choose a different code.';
+        $_SESSION['error_message'] = 'Subject with the given code already exists. Please choose a different code.';
+        header("Location: ../../pages/manage_subject/add_subject.php");
+        exit();
     } else {
         $subject_stmt = $conn->prepare("INSERT INTO `tbl_subject` (subject_code, subject_name, subject_unit) VALUES (?,?,?)");
         $subject_stmt->execute([$subject_code, $subject_name, $subject_unit]);
-        echo 'Subject added successfully';
+        $_SESSION['success_message'] = "Well done! subject added successfully";
+        header("Location: ../../pages/manage_subject/add_subject.php");
+        exit();
     }
 }

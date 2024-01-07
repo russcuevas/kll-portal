@@ -272,6 +272,15 @@ if (isset($_GET['course_id'])) {
                             <h2>UPDATE COURSE</h2>
                         </div>
                         <div class="body">
+                            <?php
+                            if (isset($_SESSION['error_message'])) {
+                                echo '<div class="alert alert-danger">' . $_SESSION['error_message'] . '</div>';
+                                unset($_SESSION['error_message']);
+                            } elseif (isset($_SESSION['success_message'])) {
+                                echo '<div class="alert bg-green">' . $_SESSION['success_message'] . '</div>';
+                                unset($_SESSION['success_message']);
+                            }
+                            ?>
                             <form id="form_advanced_validation" action="../../functions/manage_course/update_course.php" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="course_id" value="<?php echo $course['course_id'] ?>">
                                 <div class="form-group form-float">
