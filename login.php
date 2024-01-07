@@ -1,3 +1,14 @@
+<?php
+include 'database/connection.php';
+
+session_start();
+if (isset($_SESSION['admin_id'])) {
+    header('location: admin/pages/dashboard.php');
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -21,7 +32,7 @@
 <body id="sign-in">
 
     <div class="preloader">
-        <div class="loader_img"><img src="images/login/-kll.jpg" alt="loading..." height="64" width="64"></div>
+        <div class="loader_img"><img src="images/login/logo-kll.jpg" alt="loading..." height="64" width="64"></div>
     </div>
 
     <div class="flex-container">
@@ -48,7 +59,7 @@
 
                                             <div class="col-xs-12">
                                                 <h3 style="font-weight: bold;margin-bottom: 20px;">Sign In</h3>
-                                                <form action="" id="" method="post" class="">
+                                                <form action="functions-auth/login.php" id="" method="post" class="">
                                                     <div class="form-group">
                                                         <label for="email" class="sr-only"> Email</label>
                                                         <input required type="text" class="form-control  form-control-lg input-lg" id="student_id" name="email" placeholder="Email">

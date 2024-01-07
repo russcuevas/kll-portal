@@ -1,6 +1,12 @@
 <?php
 include '../../database/connection.php';
 
+session_start();
+$admin_id = $_SESSION['admin_id'];
+if (!isset($admin_id)) {
+    header('location: ../../login.php');
+}
+
 $getStudents = "SELECT 
                     s.*, 
                     y.year, 
@@ -226,7 +232,7 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                     </ul>
                     <ul style="list-style-type: none;">
                         <li>
-                            <a style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class=" material-icons mr-2" style="font-size: 18px; vertical-align: middle;">exit_to_app</i> Logout</a>
+                            <a href="../functions/auth/admin_logout.php" style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class=" material-icons mr-2" style="font-size: 18px; vertical-align: middle;">exit_to_app</i> Logout</a>
                         </li>
                     </ul>
                 </div>

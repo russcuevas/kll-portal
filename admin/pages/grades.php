@@ -1,6 +1,12 @@
 <?php
 include '../../database/connection.php';
 
+session_start();
+$admin_id = $_SESSION['admin_id'];
+if (!isset($admin_id)) {
+    header('location: ../../login.php');
+}
+
 // Assuming you have a proper SQL query to fetch the required data
 $getGrades = "SELECT 
     g.grade_id,
@@ -249,7 +255,7 @@ $result = $conn->query($getGrades);
                     </ul>
                     <ul style="list-style-type: none;">
                         <li>
-                            <a style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class=" material-icons mr-2" style="font-size: 18px; vertical-align: middle;">exit_to_app</i> Logout</a>
+                            <a href="../functions/auth/admin_logout.php" style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class=" material-icons mr-2" style="font-size: 18px; vertical-align: middle;">exit_to_app</i> Logout</a>
                         </li>
                     </ul>
                 </div>
