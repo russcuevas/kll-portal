@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                         </a>
                     </li>
                     <li>
-                        <a href="pages/helper-classes.html">
+                        <a href="../course.php">
                             <i class="material-icons">book</i>
                             <span>Course</span>
                         </a>

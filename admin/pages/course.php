@@ -6,40 +6,6 @@ $admin_id = $_SESSION['admin_id'];
 if (!isset($admin_id)) {
     header('location: ../../login.php');
 }
-
-// Assuming you have a proper SQL query to fetch the required data
-$getGrades = "SELECT 
-    g.grade_id,
-    g.teacher_assign,
-    g.grade_value, 
-    g.grade_status, 
-    s.student_fullname, 
-    s.student_no,
-    s.student_profile,
-    s.student_email, -- Include other student information as needed
-    s.student_contact,
-    s.student_address,
-    s.year_id, -- Include the 'year_id' for joining with tbl_year
-    s.course_id, -- Include the 'course_id' for joining with tbl_course
-    sb.subject_name, 
-    sb.subject_code,
-    sb.subject_unit,
-    ay.academic_year, 
-    sem.semester_name,
-    yr.year, -- Include the 'year' from tbl_year
-    cr.course -- Include the 'course' from tbl_course
-FROM tbl_grades g
-LEFT JOIN tbl_student s ON g.student_id = s.student_id
-LEFT JOIN tbl_subject sb ON g.subject_id = sb.subject_id
-LEFT JOIN tbl_academic_year ay ON g.academic_year_id = ay.academic_year_id
-LEFT JOIN tbl_semester sem ON g.semester_id = sem.semester_id
-LEFT JOIN tbl_year yr ON s.year_id = yr.year_id -- Join with tbl_year
-LEFT JOIN tbl_course cr ON s.course_id = cr.course_id -- Join with tbl_course";
-
-// Execute the query and fetch data
-$result = $conn->query($getGrades);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +14,7 @@ $result = $conn->query($getGrades);
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Student Grades List</title>
+    <title>Course/Subject List</title>
     <!-- Favicon-->
     <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
 
@@ -217,13 +183,13 @@ $result = $conn->query($getGrades);
                             <span>Students</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="grades.php">
                             <i class="material-icons">grade</i>
                             <span>Grades</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="course.php">
                             <i class="material-icons">book</i>
                             <span>Course</span>
@@ -269,84 +235,76 @@ $result = $conn->query($getGrades);
             <div class="block-header">
                 <ol class="breadcrumb breadcrumb-col-red">
                     <li><a href="dashboard.php"><i class="material-icons">home</i> Home</a></li>
-                    <li class="active"><i class="material-icons">grade</i> Grades</li>
+                    <li class="active"><i class="material-icons">book</i> Course</li>
                 </ol>
             </div>
             <!-- Exportable Table -->
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2>
-                                STUDENT GRADES LIST
+                                COURSE AVAILABLE
                             </h2>
                         </div>
                         <div class="body">
                             <div>
-                                <a href="manage_grades/add_grades.php" class="btn btn-tealbtn bg-red waves-effect btn-lg" style="margin-bottom: 15px;">+ Add grades</a>
+                                <a href="manage_course/add)course.php" class="btn btn-tealbtn bg-red waves-effect btn-lg" style="margin-bottom: 15px;">+ Add course</a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style=" color: #0e0e0e !important; margin-top: 20px important!">
                                     <thead>
                                         <tr>
-                                            <th>Student Details</th>
-                                            <th>Subject Details</th>
-                                            <th>Grade Summary</th>
+                                            <th>Course #</th>
+                                            <th>Course name</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($result as $results) : ?>
-                                            <tr>
-                                                <td>
-                                                    <img style="width: 50px;" src="../../images/profile_picture/<?php echo $results['student_profile'] ?>" alt=""> <br>
-                                                    Year : <span style="font-weight: 900;"><?php echo $results['year']; ?></span> <br>
-                                                    Course : <span style="font-weight: 900;"><?php echo $results['course']; ?> </span><br>
-                                                    Name : <span style="font-weight: 900;"><?php echo $results['student_fullname']; ?></span> <br>
-                                                    Student # : <span style="font-weight: 900;"><?php echo $results['student_no']; ?></span> <br>
-                                                </td>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Introduction to computing</td>
+                                            <td>
+                                                <a href="">Update</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                                <td>
-                                                    Academic Year : <span style="font-weight: 900;"><?php echo $results['academic_year']; ?></span> <br>
-                                                    Teacher Assign : <span style="font-weight: 900;"><?php echo $results['teacher_assign']; ?> </span> <br>
-                                                    Semester : <span style="font-weight: 900;"><?php echo $results['semester_name']; ?></span> <br>
-                                                    Subject code : <span style="font-weight: 900;"><?php echo $results['subject_code']; ?></span> <br>
-                                                    Subject name : <span style="font-weight: 900;"><?php echo $results['subject_name']; ?></span> <br>
-                                                    Unit : <span style="font-weight: 900;"><?php echo $results['subject_unit']; ?></span> <br>
-                                                </td>
-                                                <td>
-                                                    Final grade : <span style="font-weight: 900;"><?php echo number_format($results['grade_value'], 2); ?></span> <br>
-                                                    Remarks : <span style="color: <?php echo ($results['grade_status'] === 'Passed') ? 'green' : 'red'; ?>; font-weight: 900;">
-                                                        <?php echo $results['grade_status']; ?>
-                                                    </span>
-
-                                                </td>
-                                                <td>
-                                                    <a class="btn bg-red" href="manage_grades/update_grades.php?grade_id=<?php echo $results['grade_id']; ?>">Update</a>
-                                                    <a class="btn bg-red" href="#" data-toggle="modal" data-target="#deleteGradesModal<?php echo $results['grade_id']; ?>">Delete</a>
-                                                </td>
-                                            </tr>
-
-                                            <div class="modal fade" id="deleteGradesModal<?php echo $results['grade_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteGradesModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="deleteGradesModalLabel">Delete Grades</h5>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p>Cannot undo deleting grades are you sure you want to delete this?</p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <form id="deleteGradesForm" class="deleteGradesForm" data-grade-id="<?php echo $results['grade_id']; ?>" action="../functions/manage_grades/delete_grades.php" method="GET" enctype="multipart/form-data">
-                                                                <input type="hidden" name="grade_id" value="<?php echo $results['grade_id']; ?>">
-                                                                <button type="submit" class="btn bg-red">Delete</button>
-                                                            </form>
-                                                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <?php endforeach; ?>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                SUBJECTS AVAILABLE
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div>
+                                <a href="manage_subject/add_subject.php" class="btn btn-tealbtn bg-red waves-effect btn-lg" style="margin-bottom: 15px;">+ Add subjects</a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style=" color: #0e0e0e !important; margin-top: 20px important!">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject code</th>
+                                            <th>Subject name</th>
+                                            <th>Subject unit</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Sample</td>
+                                            <td>23</td>
+                                            <td>
+                                                <a href="">Update</a>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -356,13 +314,13 @@ $result = $conn->query($getGrades);
             </div>
             <!-- #END# Exportable Table -->
         </div>
-
     </section>
+
 
     <!-- Jquery Core Js -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
     <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
-    <script src="../ajax/manage_grades/delete_grades.js"></script>
+    <script src="../ajax/manage_students/delete_students.js"></script>
 
     <!-- Bootstrap Core Js -->
     <script src="../assets/plugins/bootstrap/js/bootstrap.js"></script>

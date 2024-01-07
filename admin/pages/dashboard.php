@@ -222,7 +222,7 @@ $total_pass = $result_total_pass['total_pass'];
                         </a>
                     </li>
                     <li>
-                        <a href="pages/helper-classes.html">
+                        <a href="course.php">
                             <i class="material-icons">book</i>
                             <span>Course</span>
                         </a>

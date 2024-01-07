@@ -218,13 +218,13 @@ if (isset($_GET['student_id'])) {
                         </a>
                     </li>
                     <li>
-                        <a href="pages/helper-classes.html">
+                        <a href="../grades.php">
                             <i class="material-icons">grade</i>
                             <span>Grades</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pages/helper-classes.html">
+                        <a href="pages/course.php">
                             <i class="material-icons">book</i>
                             <span>Course</span>
                         </a>
