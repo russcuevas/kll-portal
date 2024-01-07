@@ -1,10 +1,10 @@
 <?php
-include '../../database/connection.php';
+include '../../../database/connection.php';
 
 session_start();
 $admin_id = $_SESSION['admin_id'];
 if (!isset($admin_id)) {
-    header('location: ../../login.php');
+    header('location: ../../../login.php');
 }
 
 // GETTING THE DETAILS OF THE SESSION
@@ -16,13 +16,19 @@ $admin_details = $stmt_admin_details->fetch(PDO::FETCH_ASSOC);
 $admin_email = $admin_details['email'];
 $admin_fullname = $admin_details['fullname'];
 
-// getting course
-$get_course = "SELECT * FROM `tbl_course`";
-$get_stmt = $conn->query($get_course);
-$courses = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
-// end getting course
+
+// GETTING COURSE DETAILS
+if (isset($_GET['course_id'])) {
+    $course_id = $_GET['course_id'];
+
+    $get_course_stmt = $conn->prepare("SELECT * FROM `tbl_course` WHERE course_id = ?");
+    $get_course_stmt->execute([$course_id]);
+    $course = $get_course_stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -30,37 +36,33 @@ $courses = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Course/Subject List</title>
+    <title>Update Course</title>
     <!-- Favicon-->
-    <link rel="icon" href="../../images/login/logo-kll.jpg" type="image/x-icon">
-
+    <link rel="icon" href="../../../images/login/logo-kll.jpg" type="image/x-icon">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="../assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../../assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="../assets/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="../../assets/plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="../assets/plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="../../assets/plugins/animate-css/animate.css" rel="stylesheet" />
 
-    <!-- JQuery DataTable Css -->
-    <link href="../assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- Sweet Alert Css -->
+    <link href="../../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
     <!-- Bootstrap Select Css -->
-    <link href="../assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
-
-    <!-- Sweetalert Css -->
-    <link href="../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="../../assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
     <!-- Custom Css -->
-    <link href="../assets/css/style.css" rel="stylesheet">
+    <link href="../../assets/css/style.css" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="../assets/css/themes/all-themes.css" rel="stylesheet" />
+    <link href="../../assets/css/themes/all-themes.css" rel="stylesheet" />
     <style>
         /* additional css right sidebar */
         .tab-content ul {
@@ -124,6 +126,13 @@ $courses = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
             background: linear-gradient(to right, #992626, #0e0e0e) !important;
             color: #fff;
         }
+
+        .form-group .form-line.focused .form-label,
+        .form-group .form-line .form-label {
+            top: -15px !important;
+            color: #212529 !important;
+            font-weight: 900;
+        }
     </style>
 </head>
 
@@ -154,8 +163,8 @@ $courses = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a id="app-title" style="display:flex;align-items:center" class="navbar-brand" href="">
-                    <img id="bcas-logo" style="width:250px;display:inline;margin-right:10px;" src="../../images/login/homepage-kll-logo.png" />
+                <a id="app-title" style="display:flex;align-items:center" class="navbar-brand" href="../dashboard.php">
+                    <img id="bcas-logo" style="width:250px;display:inline;margin-right:10px;" src="../../../images/login/homepage-kll-logo.png" />
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -172,7 +181,7 @@ $courses = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="../../images/login/logo-kll.jpg" width="48" height="48" alt="User" />
+                    <img src="../../../images/login/logo-kll.jpg" width="48" height="48" alt="User" />
 
                     <img src="https://tse2.mm.bing.net/th?id=OIP.fqSvfYQB0rQ-6EG_oqvonQHaHa&pid=Api&P=0&h=180" width="48" height="48" alt="User" />
                 </div>
@@ -184,36 +193,36 @@ $courses = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <!-- #User Info -->
             <!-- Menu -->
-            <div class="menu">
+            <div class="menu" style="overflow: hidden;">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
                     <li>
-                        <a href="dashboard.php">
+                        <a href="../dashboard.php">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="students.php">
+                        <a href="../students.php">
                             <i class="material-icons">groups</i>
                             <span>Students</span>
                         </a>
                     </li>
                     <li>
-                        <a href="grades.php">
+                        <a href="../grades.php">
                             <i class="material-icons">grade</i>
                             <span>Grades</span>
                         </a>
                     </li>
                     <li class="active">
-                        <a href="course.php">
+                        <a href="../course.php">
                             <i class="material-icons">book</i>
                             <span>Course</span>
                         </a>
                     </li>
 
                     <li class="">
-                        <a href="../../home.php">
+                        <a href="../../../home.php">
                             <i class="material-icons">web</i>
                             <span>Page</span>
                         </a>
@@ -237,7 +246,7 @@ $courses = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
                     </ul>
                     <ul style="list-style-type: none;">
                         <li>
-                            <a href="../functions/auth/admin_logout.php" style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class=" material-icons mr-2" style="font-size: 18px; vertical-align: middle;">exit_to_app</i> Logout</a>
+                            <a style="font-weight: 900; font-size: 15px; text-decoration: none; cursor: pointer; color: black"><i class=" material-icons mr-2" style="font-size: 18px; vertical-align: middle;">exit_to_app</i> Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -250,129 +259,92 @@ $courses = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="container-fluid">
             <div class="block-header">
                 <ol class="breadcrumb breadcrumb-col-red">
-                    <li><a href="dashboard.php"><i class="material-icons">home</i> Home</a></li>
-                    <li class="active"><i class="material-icons">book</i> Course</li>
+                    <li><a href="../dashboard.php"><i class="material-icons">home</i> Home</a></li>
+                    <li><a href="../course.php"><i class="material-icons">book</i> Course</a></li>
+                    <li class="active"><i class="material-icons">book</i> Update course</li>
                 </ol>
             </div>
-            <!-- Exportable Table -->
+            <!-- Advanced Validation -->
             <div class="row clearfix">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                COURSE AVAILABLE
-                            </h2>
+                            <h2>UPDATE COURSE</h2>
                         </div>
                         <div class="body">
-                            <div>
-                                <a href="manage_course/add_course.php" class="btn btn-tealbtn bg-red waves-effect btn-lg" style="margin-bottom: 15px;">+ Add course</a>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style=" color: #0e0e0e !important; margin-top: 20px important!">
-                                    <thead>
-                                        <tr>
-                                            <th>Course #</th>
-                                            <th>Course name</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($courses as $course) : ?>
-                                            <tr>
-                                                <td><?php echo $course['course_id'] ?></td>
-                                                <td><?php echo $course['course'] ?></td>
-                                                <td>
-                                                    <a href="manage_course/update_course.php?course_id=<?php echo $course['course_id'] ?>">Update</a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            <form id="form_advanced_validation" action="../../functions/manage_course/update_course.php" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="course_id" value="<?php echo $course['course_id'] ?>">
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="course" value="<?php echo $course['course'] ?>" required>
+                                        <label class="form-label">Course name</label>
+                                    </div>
+                                    <div class="help-info">Ex. Computer Science</div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                SUBJECTS AVAILABLE
-                            </h2>
-                        </div>
-                        <div class="body">
-                            <div>
-                                <a href="manage_subject/add_subject.php" class="btn btn-tealbtn bg-red waves-effect btn-lg" style="margin-bottom: 15px;">+ Add subjects</a>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style=" color: #0e0e0e !important; margin-top: 20px important!">
-                                    <thead>
-                                        <tr>
-                                            <th>Subject code</th>
-                                            <th>Subject name</th>
-                                            <th>Subject unit</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Sample</td>
-                                            <td>23</td>
-                                            <td>
-                                                <a href="">Update</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                </div>
+
+                                <input class="btn bg-red" type="submit" name="submit" value="Save changes">
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- #END# Exportable Table -->
+            <!-- #END# Advanced Validation -->
         </div>
     </section>
 
-
     <!-- Jquery Core Js -->
-    <script src="../assets/plugins/jquery/jquery.min.js"></script>
-    <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
-    <script src="../ajax/manage_students/delete_students.js"></script>
+    <script src="../../assets/plugins/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core Js -->
-    <script src="../assets/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="../../assets/plugins/bootstrap/js/bootstrap.js"></script>
 
     <!-- Select Plugin Js -->
-    <script src="../assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <script src="../../assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
     <!-- Slimscroll Plugin Js -->
-    <script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="../../assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
     <!-- Jquery Validation Plugin Css -->
-    <script src="../assets/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="../../assets/plugins/jquery-validation/jquery.validate.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="../../assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- JQuery Steps Plugin Js -->
+    <script src="../../assets/plugins/jquery-steps/jquery.steps.js"></script>
+
+    <!-- Sweet Alert Plugin Js -->
+    <script src="../../assets/plugins/sweetalert/sweetalert.min.js"></script>
 
     <!-- Waves Effect Plugin Js -->
-    <script src="../assets/plugins/node-waves/waves.js"></script>
-
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="../assets/plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="../assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="../assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    <script src="../../assets/plugins/node-waves/waves.js"></script>
 
     <!-- Custom Js -->
-    <script src="../assets/js/admin.js"></script>
-    <script src="../assets/js/pages/tables/jquery-datatable.js"></script>
-    <script src="../assets/js/pages/forms/basic-form-elements.js"></script>
-    <script src="../assets/js/pages/forms/form-validation.js"></script>
+    <script src="../../assets/js/admin.js"></script>
+    <script src="../../assets/js/pages/forms/form-validation.js"></script>
+
     <!-- Demo Js -->
-    <script src="../assets/js/demo.js"></script>
+    <script src="../../assets/js/demo.js"></script>
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('imagePreview');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                preview.src = reader.result;
+                preview.style.width = '100px';
+                preview.style.height = '100px';
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+            }
+        }
+    </script>
 </body>
 
 </html>

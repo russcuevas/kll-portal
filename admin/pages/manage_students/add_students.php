@@ -213,7 +213,7 @@ $courses = $courseStmt->fetchAll(PDO::FETCH_ASSOC);
                         </a>
                     </li>
                     <li>
-                        <a href="pages/course.php">
+                        <a href="../course.php">
                             <i class="material-icons">book</i>
                             <span>Course</span>
                         </a>
