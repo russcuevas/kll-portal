@@ -296,6 +296,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             <h2>UPDATE STUDENT GRADES</h2>
                         </div>
                         <div class="body">
+
+                            <?php
+                            if (isset($_SESSION['error_message'])) {
+                                echo '<div class="alert alert-danger">' . $_SESSION['error_message'] . '</div>';
+                                unset($_SESSION['error_message']);
+                            } elseif (isset($_SESSION['success_message'])) {
+                                echo '<div class="alert bg-green">' . $_SESSION['success_message'] . '</div>';
+                                unset($_SESSION['success_message']);
+                            }
+                            ?>
+
                             <form id="form_advanced_validation" action="../../functions/manage_grades/update_grades.php" method="POST" enctype="multipart/form-data">
 
                                 <div class="form-group form-float">

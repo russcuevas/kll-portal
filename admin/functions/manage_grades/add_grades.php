@@ -1,5 +1,9 @@
 <?php
 include '../../../database/connection.php';
+session_start();
+
+$error_message = '';
+$success_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $academic_year_id = $_POST['academic_year_id'];
@@ -32,9 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $stmt->execute();
 
-    header('Location: success_page.php');
-    exit();
-} else {
-    header('Location: error_page.php');
+    $_SESSION['success_message'] = "Well done! grades added successfully";
+    header("Location: ../../pages/manage_grades/add_grades.php");
     exit();
 }

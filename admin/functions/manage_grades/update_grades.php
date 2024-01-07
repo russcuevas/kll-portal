@@ -1,6 +1,10 @@
 <?php
 include '../../../database/connection.php';
 
+session_start();
+$error_message = '';
+$success_message = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $academic_year_id = $_POST['academic_year_id'];
     $semester_id = $_POST['semester_id'];
@@ -39,10 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':grade_id', $grade_id, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
-        header('Location: success.php');
-    } else {
-        header('Location: error.php');
+        $_SESSION['success_message'] = "Well done! grades updated successfully";
+        header("Location: ../../pages/manage_grades/update_grades.php?grade_id=" . $grade_id);
+        exit();
     }
-} else {
-    header('Location: error.php');
 }
