@@ -25,7 +25,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             session_start();
             $_SESSION['student_id'] = $student['student_id'];
             $_SESSION['login_success'] = true;
-            header('location: ../student/pages/dashboard.php');
+            header('location: ../students/pages/dashboard.php');
         } else {
             echo 'Invalid Credentials';
         }

@@ -2,9 +2,18 @@
 include 'database/connection.php';
 
 session_start();
+// for admin to return to dashboard
 if (isset($_SESSION['admin_id'])) {
     header('location: admin/pages/dashboard.php');
 }
+// end session
+
+
+// for student to return to dashboard
+if (isset($_SESSION['student_id'])) {
+    header('location: students/pages/dashboard.php');
+}
+// end session
 
 ?>
 
