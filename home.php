@@ -10,8 +10,7 @@
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-
-
+    <link rel="shortcut icon" href="images/login/logo-kll.jpg" type="image/x-icon">
     <!-- Link Bootstrap's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -52,41 +51,20 @@
                     <div data-aos="fade-left" data-aos-duration="2000" class="offcanvas-body">
                         <ul class="navbar-nav align-items-center justify-content-end align-items-center flex-grow-1 ">
                             <li class="nav-item">
-                                <a class="nav-link active me-md-4" href="#billboard">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link me-md-4" href="#residence">Properties</a>
+                                <a class="nav-link active me-md-4" href="#home">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-md-4" href="#about-us">About</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link me-md-4" href="#residence">Events</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link me-md-4" href="#help">Contact</a>
                             </li>
-                            <li class="nav-item dropdown ">
-                                <a class="nav-link me-md-4 text-center dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a href="about.html" class="dropdown-item">About <span class="badge bg-secondary">PRO</span></a>
-                                    </li>
-                                    <li><a href="blog.html" class="dropdown-item">Blog <span class="badge bg-secondary">PRO</span></a>
-                                    </li>
-                                    <li><a href="single-post.html" class="dropdown-item">Blog-Single <span class="badge bg-secondary">PRO</span></a></li>
-                                    <li><a href="properties.html" class="dropdown-item">Properties <span class="badge bg-secondary">PRO</span></a></li>
-                                    <li><a href="property-single.html" class="dropdown-item">Property-Single <span class="badge bg-secondary">PRO</span></a></li>
-                                    <li><a href="contact.html" class="dropdown-item">Contact <span class="badge bg-secondary">PRO</span></a></li>
-                                    <li><a href="reviews.html" class="dropdown-item">Review <span class="badge bg-secondary">PRO</span></a></li>
-                                    <li><a href="agents.html" class="dropdown-item">Agents <span class="badge bg-secondary">PRO</span></a>
-                                    </li>
-                                    <li><a href="faqs.html" class="dropdown-item">FAQs <span class="badge bg-secondary">PRO</span></a>
-                                    </li>
-                                    <li><a href="styles.html" class="dropdown-item">Styles <span class="badge bg-secondary">PRO</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-
 
                             <li class="nav-item">
-                                <a class="btn-medium btn btn-primary" href="login.php">Login</a>
+                                <a class="btn-medium btn btn-info text-white" href="login.php">Student portal</a>
                             </li>
 
                             <!-- Modal -->
@@ -169,7 +147,7 @@
     </header>
 
     <!-- BANNER START -->
-    <section id="billboard" data-aos="fade-right" data-aos-duration="2000">
+    <section id="home" data-aos="fade-right" data-aos-duration="2000">
         <div class="container ">
             <div class="row flex-lg-row-reverse align-items-center ">
 
@@ -222,174 +200,9 @@
     </section>
 
 
-    <!-- EVENTS -->
-    <section id="residence">
-        <div class="container  my-5 py-5">
-            <h2 class="text-capitalize m-0 py-lg-5" data-aos="fade-right" data-aos-duration="1000">Campus Events</h2>
-
-            <div class="swiper-button-next residence-swiper-next  residence-arrow"></div>
-            <div class="swiper-button-prev residence-swiper-prev residence-arrow"></div>
-
-            <div class="swiper residence-swiper">
-                <div class="swiper-wrapper">
-
-                    <div class="swiper-slide">
-                        <div class="card" data-aos="flip-right" data-aos-duration="1000">
-                            <a href="property-single.html"><img src="home-assets/images/biglakasan-event-1.jpg" class="card-img-top" alt="image"></a>
-                            <div class="card-body p-0">
-                                <a href="property-single.html">
-                                    <h5 class="card-title pt-4">Biglakasan</h5>
-                                </a>
-                                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                                <div class="card-text">
-                                    <ul class="d-flex">
-                                        <li class="residence-list"> <img src="home-assets/images/bed.png" alt="image"> 4 bed</li>
-                                        <li class="residence-list"> <img src="home-assets/images/bath.png" alt="image"> 2 bath</li>
-                                        <li class="residence-list"> <img src="home-assets/images/square.png" alt="image"> 1203 Sqft.</li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card" data-aos="flip-right" data-aos-duration="2000">
-                            <a href="property-single.html"><img src="home-assets/images/item16.png" class="card-img-top" alt="image"></a>
-                            <div class="card-body p-0">
-                                <a href="property-single.html">
-                                    <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                                </a>
-                                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                                <div class="card-text">
-                                    <ul class="d-flex">
-                                        <li class="residence-list"> <img src="home-assets/images/bed.png" alt="image"> 4 bed</li>
-                                        <li class="residence-list"> <img src="home-assets/images/bath.png" alt="image"> 2 bath</li>
-                                        <li class="residence-list"> <img src="home-assets/images/square.png" alt="image"> 1203 Sqft.</li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card" data-aos="flip-right" data-aos-duration="3000">
-                            <a href="property-single.html"><img src="home-assets/images/item17.png" class="card-img-top" alt="image"></a>
-                            <div class="card-body p-0">
-                                <a href="property-single.html">
-                                    <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                                </a>
-                                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                                <div class="card-text">
-                                    <ul class="d-flex">
-                                        <li class="residence-list"> <img src="home-assets/images/bed.png" alt="image"> 4 bed</li>
-                                        <li class="residence-list"> <img src="home-assets/images/bath.png" alt="image"> 2 bath</li>
-                                        <li class="residence-list"> <img src="home-assets/images/square.png" alt="image"> 1203 Sqft.</li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <a href="property-single.html"><img src="home-assets/images/item1.jpg" class="card-img-top" alt="image"></a>
-                            <div class="card-body p-0">
-                                <a href="property-single.html">
-                                    <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                                </a>
-                                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                                <div class="card-text">
-                                    <ul class="d-flex">
-                                        <li class="residence-list"> <img src="home-assets/images/bed.png" alt="image"> 4 bed</li>
-                                        <li class="residence-list"> <img src="home-assets/images/bath.png" alt="image"> 2 bath</li>
-                                        <li class="residence-list"> <img src="home-assets/images/square.png" alt="image"> 1203 Sqft.</li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <a href="property-single.html"><img src="home-assets/images/item2.jpg" class="card-img-top" alt="image"></a>
-                            <div class="card-body p-0">
-                                <a href="property-single.html">
-                                    <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                                </a>
-                                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                                <div class="card-text">
-                                    <ul class="d-flex">
-                                        <li class="residence-list"> <img src="home-assets/images/bed.png" alt="image"> 4 bed</li>
-                                        <li class="residence-list"> <img src="home-assets/images/bath.png" alt="image"> 2 bath</li>
-                                        <li class="residence-list"> <img src="home-assets/images/square.png" alt="image"> 1203 Sqft.</li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <a href="property-single.html"><img src="home-assets/images/item3.jpg" class="card-img-top" alt="image"></a>
-                            <div class="card-body p-0">
-                                <a href="property-single.html">
-                                    <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                                </a>
-                                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                                <div class="card-text">
-                                    <ul class="d-flex">
-                                        <li class="residence-list"> <img src="home-assets/images/bed.png" alt="image"> 4 bed</li>
-                                        <li class="residence-list"> <img src="home-assets/images/bath.png" alt="image"> 2 bath</li>
-                                        <li class="residence-list"> <img src="home-assets/images/square.png" alt="image"> 1203 Sqft.</li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <a href="property-single.html"><img src="home-assets/images/item4.jpg" class="card-img-top" alt="image"></a>
-                            <div class="card-body p-0">
-                                <a href="property-single.html">
-                                    <h5 class="card-title pt-4">Aliva Priva Jalvin</h5>
-                                </a>
-                                <p class="card-text">1087 Pin Oak Drive, Clinton, USA</p>
-
-                                <div class="card-text">
-                                    <ul class="d-flex">
-                                        <li class="residence-list"> <img src="home-assets/images/bed.png" alt="image"> 4 bed</li>
-                                        <li class="residence-list"> <img src="home-assets/images/bath.png" alt="image"> 2 bath</li>
-                                        <li class="residence-list"> <img src="home-assets/images/square.png" alt="image"> 1203 Sqft.</li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-
-            </div>
-
-            <div class="residence-btn">
-                <a href="properties.html" class="btn btn-primary btn-lg my-5">View All Properties</a>
-            </div>
-
-        </div>
-    </section>
 
     <!--About us start  -->
-    <section id="about-us">
+    <section id="about-us" data-aos="fade-up" data-aos-duration="3000">
         <div class="container">
             <div class="row py-lg-5">
 
@@ -404,14 +217,14 @@
 
                 <div class="text-center col-lg-4">
                     <img src="home-assets/images/price.png" class="bd-placeholder-img rounded-circle" alt="Bootstrap Themes" width="140" height="140" loading="lazy">
-                    <h4 class="fw-normal mt-5">Certified Trained Teachers</h4>
+                    <h4 class="fw-normal mt-5">Cost effective education</h4>
                     <!-- <p>Urna, massa aliqua dui pellentesque. Ac, gravida in. Diam vitae, nec mattis lectus quam pretium amet
             facilisis.</p> -->
                 </div>
 
                 <div class="text-center col-lg-4">
                     <img src="home-assets/images/time.png" class="bd-placeholder-img rounded-circle" alt="Bootstrap Themes" width="140" height="140" loading="lazy">
-                    <h4 class="fw-normal mt-5 ">Cost effective education</h4>
+                    <h4 class="fw-normal mt-5 ">Certified Trained Teachers</h4>
                     <!-- <p>Ac, gravida in diam vitae, nec mattis lectus quam pretium amet facilisis. Urna, massa aliqua dui
             pellentesque. </p> -->
                 </div>
@@ -419,11 +232,9 @@
         </div>
     </section>
 
-    <!-- Testimonial start  -->
-    <section id="testimonial">
+    <!-- Mission Vision start  -->
+    <section id="testimonial" data-aos="fade-right" data-aos-md="fade-up" data-aos-duration="2000" style="overflow: hidden;">
         <div class="container my-5">
-
-
 
             <div class="swiper testimonial-swiper">
                 <div class="swiper-wrapper">
@@ -432,12 +243,14 @@
                         <div class="row my-5 py-lg-5">
                             <div class="col-md-8 mx-auto">
                                 <img src="home-assets/images/quote.png" class="rounded mx-auto d-inline" alt="...">
-                                <p class="testimonial-p mt-4">Sample quote</p>
+                                <p class="testimonial-p mt-4">- Mission -<br> <br>
+                                    Establish and maintain an academic promoting the pursuit of excellence and the total development of its students as human beings, with fear of God and love of country and fellowmen.
+                                </p>
 
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <p class="pt-5 mb-1">Sample Name</p>
-                                        <p class="">Professor, Computer Science</p>
+                                        <p class="pt-5 mb-1">KLL Mission</p>
+                                        <!-- <p class="">Professor, Computer Science</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -448,12 +261,13 @@
                         <div class="row my-5 py-lg-5">
                             <div class="col-md-8 mx-auto">
                                 <img src="home-assets/images/quote.png" class="rounded mx-auto d-inline" alt="...">
-                                <p class="testimonial-p mt-4">Sample quote</p>
+                                <p class="testimonial-p mt-4">- Vision -<br> <br>
+                                    A center of human development committed to the pursuit of wisdom, truth, justice, pride, dignity, local and global competitiveness via a quality but free education for qualified clients. </p>
 
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <p class="pt-5 mb-1">Sample Name</p>
-                                        <p class="">Professor, Education</p>
+                                        <p class="pt-5 mb-1">KLL Vision</p>
+                                        <!-- <p class="">Professor, Education</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -464,12 +278,17 @@
                         <div class="row my-5 py-lg-5">
                             <div class="col-md-8 mx-auto">
                                 <img src="home-assets/images/quote.png" class="rounded mx-auto d-inline" alt="...">
-                                <p class="testimonial-p mt-4">Sample quote</p>
+                                <p class="testimonial-p mt-4">- Goals - <br> <br>
+                                    1. Foster the spiritual, intellectual, social, moral, and creative life of its client via a free but quality tertiary education. <br>
+                                    2. Provide the clients with rich and substantial, relevant and wide range of academic disciplines, exposed them to varied curricular experiences with nurture and enhance their personal dedication and commitments to social, moral, cultural and economic transformations; <br>
+                                    3. Work with the government and community in the pursuit of achieving national development goals and; <br>
+                                    4.Develop deserving and qualified clients into the different skills of life existence and prepare them to local and global competitiveness. <br>
+                                </p>
 
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <p class="pt-5 mb-1">Sample Name</p>
-                                        <p class="">Professor, Criminology</p>
+                                        <p class="pt-5 mb-1">KLL Goals</p>
+                                        <!-- <p class="">Professor, Criminology</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -490,6 +309,80 @@
             </div>
         </div>
     </section>
+
+    <!-- EVENTS -->
+    <section id="residence">
+        <div class="container  my-5 py-5">
+            <h2 class="text-capitalize m-0 py-lg-5" data-aos="fade-right" data-aos-duration="1000">Campus Events</h2>
+
+            <div class="swiper-button-next residence-swiper-next  residence-arrow"></div>
+            <div class="swiper-button-prev residence-swiper-prev residence-arrow"></div>
+
+            <div class="swiper residence-swiper">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div class="card" data-aos="flip-right" data-aos-duration="1000">
+                            <a href="#"><img src="home-assets/images/biglakasan-event-1.jpg" class="card-img-top" alt="image"></a>
+                            <div class="card-body p-0">
+                                <a href="#">
+                                    <h5 class="card-title pt-4">Cheerdance Competition</h5>
+                                </a>
+                                <p class="card-text">@Kolehiyo ng Lungsod ng Lipa</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card" data-aos="flip-right" data-aos-duration="2000">
+                            <a href="#"><img src="home-assets/images/cte.jpg" class="card-img-top" alt="image"></a>
+                            <div class="card-body p-0">
+                                <a href="#">
+                                    <h5 class="card-title pt-4">CTE Nights</h5>
+                                </a>
+                                <p class="card-text">@Kolehiyo ng Lungsod ng Lipa</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card" data-aos="flip-right" data-aos-duration="3000">
+                            <a href="#"><img src="home-assets/images/crim-days.jpg" class="card-img-top" alt="image"></a>
+                            <div class="card-body p-0">
+                                <a href="#">
+                                    <h5 class="card-title pt-4">CRIM Days</h5>
+                                </a>
+                                <p class="card-text">@Kolehiyo ng Lungsod ng Lipa</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card">
+                            <a href="#"><img src="home-assets/images/biglakasan-pageant.jpg" class="card-img-top" alt="image"></a>
+                            <div class="card-body p-0">
+                                <a href="#">
+                                    <h5 class="card-title pt-4">Biglakasan Pageant</h5>
+                                </a>
+                                <p class="card-text">@Kolehiyo ng Lungsod ng Lipa</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+            <!-- <div class="residence-btn">
+                <a href="" class="btn btn-primary btn-lg my-5">View All Properties</a>
+            </div> -->
+
+        </div>
+    </section>
+
 
     <!-- Help start  -->
     <section id="help" class="py-5" style="background: linear-gradient(270deg, #1A242F 0.01%, rgba(26, 36, 47, 0.00) 100%); overflow-x: hidden;">
