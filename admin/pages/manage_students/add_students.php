@@ -270,8 +270,18 @@ $courses = $courseStmt->fetchAll(PDO::FETCH_ASSOC);
                             <h2>ADD STUDENTS</h2>
                         </div>
                         <div class="body">
-                            <form id="form_advanced_validation" action="../../functions/manage_students/add_students.php" method="POST" enctype="multipart/form-data">
-
+                            <!-- displaying alert -->
+                            <?php
+                            if (isset($_SESSION['error_message'])) {
+                                echo '<div class="alert alert-danger">' . $_SESSION['error_message'] . '</div>';
+                                unset($_SESSION['error_message']);
+                            } elseif (isset($_SESSION['success_message'])) {
+                                echo '<div class="alert bg-green">' . $_SESSION['success_message'] . '</div>';
+                                unset($_SESSION['success_message']);
+                            }
+                            ?>
+                            <!-- end displaying -->
+                            <form id="form_advanced_validation" class="addStudentsForm" action="../../functions/manage_students/add_students.php" method="POST" enctype="multipart/form-data">
                                 <div class="form-group form-float">
                                     <label id="fileLabel" for="productImageInput">Student 2x2 picture</label>
                                     <div class="form-line">
