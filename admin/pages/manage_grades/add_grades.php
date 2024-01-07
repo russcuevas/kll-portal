@@ -42,7 +42,7 @@ $semesters = $semester_stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Add Students</title>
+    <title>Add Grades</title>
     <!-- Favicon-->
     <link rel="icon" href="../../../images/login/logo-kll.jpg" type="image/x-icon">
     <!-- Google Fonts -->
@@ -343,7 +343,7 @@ $semesters = $semester_stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
 
                                 <input type="hidden" name="grade_status">
-                                <input class="btn bg-red" type="submit" name="submit" value="Add students">
+                                <input class="btn bg-red" type="submit" name="submit" value="Add grades">
                             </form>
                         </div>
                     </div>

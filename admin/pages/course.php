@@ -22,6 +22,10 @@ $get_stmt = $conn->query($get_course);
 $courses = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
 // end getting course
 
+$get_subject = "SELECT * FROM `tbl_subject`";
+$get_stmt = $conn->query($get_subject);
+$subjects = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -282,7 +286,7 @@ $courses = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $course['course_id'] ?></td>
                                                 <td><?php echo $course['course'] ?></td>
                                                 <td>
-                                                    <a href="manage_course/update_course.php?course_id=<?php echo $course['course_id'] ?>">Update</a>
+                                                    <a class="btn bg-red" href="manage_course/update_course.php?course_id=<?php echo $course['course_id'] ?>">Update</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach ?>
@@ -308,21 +312,23 @@ $courses = $get_stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style=" color: #0e0e0e !important; margin-top: 20px important!">
                                     <thead>
                                         <tr>
-                                            <th>Subject code</th>
-                                            <th>Subject name</th>
-                                            <th>Subject unit</th>
+                                            <th>Code</th>
+                                            <th>Subject Name</th>
+                                            <th>Unit</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Sample</td>
-                                            <td>23</td>
-                                            <td>
-                                                <a href="">Update</a>
-                                            </td>
-                                        </tr>
+                                        <?php foreach ($subjects as $subject) : ?>
+                                            <tr>
+                                                <td><?php echo $subject['subject_code'] ?></td>
+                                                <td><?php echo $subject['subject_name'] ?></td>
+                                                <td><?php echo $subject['subject_unit'] ?></td>
+                                                <td>
+                                                    <a class="btn bg-red" href="manage_subject/update_subject.php?subject_id=<?php echo $subject['subject_id'] ?>">Update</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach ?>
                                     </tbody>
                                 </table>
                             </div>

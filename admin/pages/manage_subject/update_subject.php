@@ -16,35 +16,16 @@ $admin_details = $stmt_admin_details->fetch(PDO::FETCH_ASSOC);
 $admin_email = $admin_details['email'];
 $admin_fullname = $admin_details['fullname'];
 
-// fetch student
-$student_stmt = $conn->query("SELECT * FROM tbl_student");
-$students = $student_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// fetch subject
-$subject_stmt = $conn->query("SELECT * FROM tbl_subject");
-$subjects = $subject_stmt->fetchAll(PDO::FETCH_ASSOC);
+// GETTING COURSE DETAILS
+if (isset($_GET['subject_id'])) {
+    $subject_id = $_GET['subject_id'];
 
-// fetch academic year
-$academic_stmt = $conn->query("SELECT * FROM tbl_academic_year");
-$academics = $academic_stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// fetch semester
-$semester_stmt = $conn->query("SELECT * FROM tbl_semester");
-$semesters = $semester_stmt->fetchAll(PDO::FETCH_ASSOC);
-
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $grade_id = isset($_GET['grade_id']) ? $_GET['grade_id'] : null;
-
-    if ($grade_id) {
-        $getGradeById = "SELECT * FROM tbl_grades WHERE grade_id = :grade_id";
-        $stmt = $conn->prepare($getGradeById);
-        $stmt->bindParam(':grade_id', $grade_id, PDO::PARAM_INT);
-        $stmt->execute();
-        $grade = $stmt->fetch(PDO::FETCH_ASSOC);
-    } else {
-    }
-} else {
+    $get_subject_stmt = $conn->prepare("SELECT * FROM `tbl_subject` WHERE subject_id = ?");
+    $get_subject_stmt->execute([$subject_id]);
+    $subject = $get_subject_stmt->fetch(PDO::FETCH_ASSOC);
 }
+
 
 ?>
 
@@ -55,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Update grades</title>
+    <title>Update Course</title>
     <!-- Favicon-->
     <link rel="icon" href="../../../images/login/logo-kll.jpg" type="image/x-icon">
     <!-- Google Fonts -->
@@ -227,13 +208,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             <span>Students</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="../grades.php">
                             <i class="material-icons">grade</i>
                             <span>Grades</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="../course.php">
                             <i class="material-icons">book</i>
                             <span>Course</span>
@@ -279,8 +260,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             <div class="block-header">
                 <ol class="breadcrumb breadcrumb-col-red">
                     <li><a href="../dashboard.php"><i class="material-icons">home</i> Home</a></li>
-                    <li><a href="../grades.php"><i class="material-icons">grade</i> Grades</a></li>
-                    <li class="active"><i class="material-icons">grade</i> Update grades</li>
+                    <li><a href="../course.php"><i class="material-icons">book</i> Course</a></li>
+                    <li class="active"><i class="material-icons">book</i> Update subject</li>
                 </ol>
             </div>
             <!-- Advanced Validation -->
@@ -288,85 +269,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>UPDATE STUDENT GRADES</h2>
+                            <h2>UPDATE SUBJECT</h2>
                         </div>
                         <div class="body">
-                            <form id="form_advanced_validation" action="../../functions/manage_grades/update_grades.php" method="POST" enctype="multipart/form-data">
-
+                            <form id="form_advanced_validation" action="../../functions/manage_subject/update_subject.php" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="subject_id" value="<?php echo $subject['subject_id'] ?>">
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <select name="academic_year_id" class="form-control show-tick" required>
-                                            <option style="color: #0e0e0e !important;" disabled>-- Select academic year --</option>
-                                            <?php foreach ($academics as $academic) : ?>
-                                                <option value="<?php echo $academic['academic_year_id']; ?>" <?php echo ($academic['academic_year_id'] == $grade['academic_year_id']) ? 'selected' : ''; ?>>
-                                                    <?php echo $academic['academic_year']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
+                                        <input type="text" class="form-control" name="subject_code" value="<?php echo $subject['subject_code'] ?>" required>
+                                        <label class="form-label">Subject code</label>
                                     </div>
+                                    <div class="help-info">Ex. CC101</div>
+
                                 </div>
 
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <select name="semester_id" class="form-control show-tick" required>
-                                            <option style="color: #0e0e0e !important;" disabled>-- Select semester --</option>
-                                            <?php foreach ($semesters as $semester) : ?>
-                                                <option value="<?php echo $semester['semester_id']; ?>" <?php echo ($semester['semester_id'] == $grade['semester_id']) ? 'selected' : ''; ?>>
-                                                    <?php echo $semester['semester_name']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
+                                        <input type="text" class="form-control" name="subject_name" value="<?php echo $subject['subject_name'] ?>" required>
+                                        <label class="form-label">Subject name</label>
                                     </div>
+                                    <div class="help-info">Ex. Introduction to Programming</div>
+
                                 </div>
 
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <select name="student_id" class="form-control show-tick" required>
-                                            <option style="color: #0e0e0e !important;" disabled selected>-- Select student --</option>
-                                            <?php foreach ($students as $student) : ?>
-                                                <option value="<?php echo $student['student_id']; ?>" <?php echo ($student['student_id'] == $grade['student_id']) ? 'selected' : ''; ?>>
-                                                    <?php echo $student['student_fullname']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
+                                        <input type="text" class="form-control" name="subject_unit" value="<?php echo $subject['subject_unit'] ?>" required>
+                                        <label class="form-label">Subject unit</label>
                                     </div>
+                                    <div class="help-info">Ex. 3</div>
+
                                 </div>
 
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <select name="subject_id" class="form-control show-tick" required>
-                                            <option style="color: #0e0e0e !important;" disabled selected>-- Select subject --</option>
-                                            <?php foreach ($subjects as $subject) : ?>
-                                                <option value="<?php echo $subject['subject_id']; ?>" <?php echo ($subject['subject_id'] == $grade['subject_id']) ? 'selected' : ''; ?>>
-                                                    <?php echo $subject['subject_name']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <br>
-                                <br>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" name="teacher_assign" value="<?php echo $grade['teacher_assign']; ?>" required>
-                                        <label class="form-label">Teacher</label>
-                                    </div>
-                                    <div class="help-info">Ex. Juan Dela Cruz, Jr</div>
-                                </div>
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="number" class="form-control" name="grade_value" value="<?php echo number_format($grade['grade_value'], 2); ?>">
-                                        <label class="form-label">Final grade</label>
-                                    </div>
-                                    <div class="help-info">1.00/2.00</div>
-                                </div>
-
-                                <input type="hidden" name="grade_id" value="<?php echo $grade['grade_id']; ?>">
-                                <input type="hidden" name="grade_status" value="<?php echo $grade['grade_status'] ?>">
                                 <input class="btn bg-red" type="submit" name="submit" value="Save changes">
                             </form>
                         </div>
@@ -410,6 +344,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     <!-- Demo Js -->
     <script src="../../assets/js/demo.js"></script>
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('imagePreview');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                preview.src = reader.result;
+                preview.style.width = '100px';
+                preview.style.height = '100px';
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+            }
+        }
+    </script>
 </body>
 
 </html>
