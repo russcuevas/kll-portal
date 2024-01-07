@@ -208,18 +208,23 @@ if (isset($_GET['course_id'])) {
                             <span>Students</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="../grades.php">
-                            <i class="material-icons">grade</i>
-                            <span>Grades</span>
-                        </a>
-                    </li>
+
                     <li class="active">
                         <a href="../course.php">
                             <i class="material-icons">book</i>
                             <span>Course</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="../grades.php">
+                            <i class="material-icons">grade</i>
+                            <span>Grades</span>
+                        </a>
+                    </li>
+
+                    <li class="header">KLL HOMEPAGE</li>
+
 
                     <li class="">
                         <a href="../../../home.php">

@@ -190,7 +190,7 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
             <!-- Menu -->
             <div class="menu">
                 <ul class="list">
-                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="header">KLL PORTAL</li>
                     <li>
                         <a href="dashboard.php">
                             <i class="material-icons">home</i>
@@ -204,17 +204,21 @@ $students = $getStmt->fetchAll(PDO::FETCH_ASSOC);
                         </a>
                     </li>
                     <li>
-                        <a href="grades.php">
-                            <i class="material-icons">grade</i>
-                            <span>Grades</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="course.php">
                             <i class="material-icons">book</i>
                             <span>Course</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="grades.php">
+                            <i class="material-icons">grade</i>
+                            <span>Grades</span>
+                        </a>
+                    </li>
+
+                    <li class="header">KLL HOMEPAGE</li>
+
 
                     <li class="">
                         <a href="../../home.php">
