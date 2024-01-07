@@ -115,6 +115,32 @@ $students_profile = $students['student_profile'];
             background: linear-gradient(to right, #992626, #0e0e0e) !important;
             color: #fff;
         }
+
+        @keyframes moveAnnouncement {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        footer {
+            background: linear-gradient(to right, #992626, #0e0e0e) !important;
+        }
+
+        .announcement-container {
+            overflow: hidden;
+            background: linear-gradient(to right, #992626, #0e0e0e) !important;
+            color: #fff;
+        }
+
+        .announcement {
+            white-space: nowrap;
+            padding: 10px;
+            animation: moveAnnouncement 20s linear infinite;
+        }
     </style>
 </head>
 
@@ -324,6 +350,19 @@ $students_profile = $students['student_profile'];
             </div>
         </div>
     </section>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer>
+        <div class="announcement-container">
+            <div class="announcement">
+                <h4>Announcement: Enrollment is on going</h4>
+            </div>
+        </div>
+    </footer>
 
     <!-- Jquery Core Js -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
