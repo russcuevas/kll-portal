@@ -44,7 +44,7 @@ $semesters = $semester_stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Add Students</title>
     <!-- Favicon-->
-    <link rel="icon" href="../../assets/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../../../images/login/logo-kll.jpg" type="image/x-icon">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
