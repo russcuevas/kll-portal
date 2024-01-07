@@ -410,7 +410,7 @@
                             being granted entry into the campus. Regular office hours start at 8:00 a.m. and end at 5:00 p.m. during
                             Mondays to
                             Fridays; and 8:00 a.m. to 12:00 noon on Saturdays.</p>
-                        <a href="contact.html" class="btn btn-primary btn-lg">Get In Touch</a>
+                        <a href="contact.php" class="btn btn-primary btn-lg">Get In Touch</a>
                     </div>
                 </div>
 
@@ -441,7 +441,7 @@
                             shape them into well-rounded individuals ready to embrace the challenges of the world. KLL is not just a
                             campus; it’s
                             a home where dreams are nurtured, and potential is unleashed.</p>
-                        <a href="contact.html" data-aos="zoom-in" data-aos-duration="1500" class="btn btn-primary btn-lg px-4 me-md-2">Get
+                        <a href="contact.php" data-aos="zoom-in" data-aos-duration="1500" class="btn btn-primary btn-lg px-4 me-md-2">Get
                             Started</a>
                     </div>
                 </div>
